@@ -9,6 +9,7 @@
 #import "SectionListTableViewController.h"
 #import "SectionListTableViewCell.h"
 #import "DataStore.h"
+#import "WorkoutViewController.h"
 
 @interface SectionListTableViewController ()
 
@@ -61,6 +62,11 @@
     return cell;
 }
 
+- (IBAction)startWorkoutButtonPressed:(id)sender {
+    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    WorkoutViewController *workoutVC = [mainStoryBoard instantiateViewControllerWithIdentifier:@"WorkoutViewController"];
+    [self.navigationController pushViewController:workoutVC animated:YES];
+}
 
 /*
 // Override to support conditional editing of the table view.

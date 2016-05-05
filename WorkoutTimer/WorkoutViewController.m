@@ -7,10 +7,11 @@
 //
 
 #import "WorkoutViewController.h"
+#import "WorkoutTableViewCell.h"
 #import "DataStore.h"
 #import "UIView+Utils.h"
 
-#define MIN_SECTION_HEIGHT 16.0f
+#define MIN_SECTION_HEIGHT 17.0f
 
 @interface WorkoutViewController ()
 
@@ -41,6 +42,26 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.workoutSections.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    WorkoutTableViewCell *cell = (WorkoutTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"WorkoutTableViewCell" forIndexPath:indexPath];
+    
+    WorkoutSection *workoutSection = [self.workoutSections objectAtIndex:indexPath.row];
+    cell.timeLabel.text = [NSString stringWithFormat:@"%lf", workoutSection.duration];
+    cell.sectionNameLabel.text = workoutSection.name;
+    
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    WorkoutSection *thisSection = self.workoutSections[indexPath.row];
+    CGFloat calculatedHeight = thisSection.duration * self.pixelsPerSecond;
+    return MAX(calculatedHeight, MIN_SECTION_HEIGHT);
 }
 
 /*
