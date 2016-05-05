@@ -11,7 +11,7 @@
 #import "DataStore.h"
 #import "UIView+Utils.h"
 
-#define MIN_SECTION_HEIGHT 17.0f
+#define MIN_SECTION_HEIGHT 20.0f
 
 @interface WorkoutViewController ()
 
