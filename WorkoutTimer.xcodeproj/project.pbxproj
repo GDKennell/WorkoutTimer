@@ -20,6 +20,7 @@
 		CAC6C0451CDB9E5500102AF0 /* WorkoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC6C0441CDB9E5500102AF0 /* WorkoutViewController.m */; };
 		CAC6C0481CDBA0A900102AF0 /* UIView+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC6C0471CDBA0A900102AF0 /* UIView+Utils.m */; };
 		CAC6C04B1CDBA39700102AF0 /* WorkoutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC6C04A1CDBA39700102AF0 /* WorkoutTableViewCell.m */; };
+		CAC6C0511CDBB41C00102AF0 /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC6C0501CDBB41C00102AF0 /* NSString+Utils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,8 @@
 		CAC6C0471CDBA0A900102AF0 /* UIView+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Utils.m"; sourceTree = "<group>"; };
 		CAC6C0491CDBA39700102AF0 /* WorkoutTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkoutTableViewCell.h; sourceTree = "<group>"; };
 		CAC6C04A1CDBA39700102AF0 /* WorkoutTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutTableViewCell.m; sourceTree = "<group>"; };
+		CAC6C04F1CDBB41C00102AF0 /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utils.h"; sourceTree = "<group>"; };
+		CAC6C0501CDBB41C00102AF0 /* NSString+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utils.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +84,8 @@
 			children = (
 				CAC6C0461CDBA0A900102AF0 /* UIView+Utils.h */,
 				CAC6C0471CDBA0A900102AF0 /* UIView+Utils.m */,
+				CAC6C04F1CDBB41C00102AF0 /* NSString+Utils.h */,
+				CAC6C0501CDBB41C00102AF0 /* NSString+Utils.m */,
 				CAC6C0231CDB8FD100102AF0 /* AppDelegate.h */,
 				CAC6C0241CDB8FD100102AF0 /* AppDelegate.m */,
 				CAC6C0261CDB8FD100102AF0 /* ViewController.h */,
@@ -188,6 +193,7 @@
 				CAC6C0281CDB8FD100102AF0 /* ViewController.m in Sources */,
 				CAC6C0251CDB8FD100102AF0 /* AppDelegate.m in Sources */,
 				CAC6C0481CDBA0A900102AF0 /* UIView+Utils.m in Sources */,
+				CAC6C0511CDBB41C00102AF0 /* NSString+Utils.m in Sources */,
 				CAC6C0391CDB941F00102AF0 /* SectionListTableViewController.m in Sources */,
 				CAC6C0451CDB9E5500102AF0 /* WorkoutViewController.m in Sources */,
 				CAC6C03C1CDB956200102AF0 /* SectionListTableViewCell.m in Sources */,

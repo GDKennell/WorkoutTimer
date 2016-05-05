@@ -10,13 +10,14 @@
 #import "WorkoutTableViewCell.h"
 #import "DataStore.h"
 #import "UIView+Utils.h"
+#import "NSString+Utils.h"
 
 #define MIN_SECTION_HEIGHT 20.0f
 
 @interface WorkoutViewController ()
 
 @property NSTimeInterval totalWorkoutTime;
-@property NSArray *workoutSections;
+@property NSArray<WorkoutSection *> *workoutSections;
 @property CGFloat pixelsPerSecond;
 
 @property UITableView *tableView;
@@ -32,6 +33,7 @@
     self.totalWorkoutTime = 0.0f;
     self.workoutSections = [[[DataStore sharedDataStore] workoutSections] copy];
     for (WorkoutSection *section in self.workoutSections) {
+        section.startTime = self.totalWorkoutTime;
         self.totalWorkoutTime += section.duration;
     }
     
@@ -52,7 +54,7 @@
     WorkoutTableViewCell *cell = (WorkoutTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"WorkoutTableViewCell" forIndexPath:indexPath];
     
     WorkoutSection *workoutSection = [self.workoutSections objectAtIndex:indexPath.row];
-    cell.timeLabel.text = [NSString stringWithFormat:@"%lf", workoutSection.duration];
+    cell.timeLabel.text = [NSString stringWithTimeInterval:workoutSection.startTime];
     cell.sectionNameLabel.text = workoutSection.name;
     
     return cell;

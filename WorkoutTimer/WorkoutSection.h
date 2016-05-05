@@ -12,6 +12,7 @@
 
 @property NSTimeInterval duration;
 @property NSString *name;
+@property NSTimeInterval startTime;
 
 + (WorkoutSection *)sectionWithDuration:(NSTimeInterval)duration name:(NSString *)name;
 

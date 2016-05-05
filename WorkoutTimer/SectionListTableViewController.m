@@ -10,6 +10,7 @@
 #import "SectionListTableViewCell.h"
 #import "DataStore.h"
 #import "WorkoutViewController.h"
+#import "NSString+Utils.h"
 
 @interface SectionListTableViewController ()
 
@@ -56,7 +57,7 @@
     SectionListTableViewCell *cell = (SectionListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"SectionListTableViewCell" forIndexPath:indexPath];
 
     WorkoutSection *workoutSection = [[[DataStore sharedDataStore] workoutSections] objectAtIndex:indexPath.row];
-    cell.timeLabel.text = [NSString stringWithFormat:@"%lf", workoutSection.duration];
+    cell.timeLabel.text = [NSString stringWithTimeInterval:workoutSection.duration];
     cell.mainLabel.text = workoutSection.name;
     
     return cell;
