@@ -75,7 +75,7 @@
                                             </constraints>
                                             <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="2" right="8"/>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.93182128050000002" green="0.93182128050000002" blue="0.93182128050000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="1" green="0.83350566439999996" blue="0.23678044740000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="0.0" right="8"/>
                                         <connections>
                                             <outlet property="mainLabel" destination="kF8-cc-T5l" id="GGh-DM-j6t"/>

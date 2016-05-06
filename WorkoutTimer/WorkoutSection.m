@@ -43,6 +43,7 @@
 + (WorkoutSection *)sectionWithDuration:(NSTimeInterval)duration name:(NSString *)name {
     WorkoutSection *newSection = [[WorkoutSection alloc] init];
     newSection.duration = duration;
+    newSection.timeRemaining = duration;
     newSection.name = name;
     return newSection;
 }

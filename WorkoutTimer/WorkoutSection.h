@@ -31,6 +31,7 @@
 
 // Calculated property when added to DataStore
 @property NSTimeInterval startTime;
+@property NSTimeInterval timeRemaining;
 
 
 //@property

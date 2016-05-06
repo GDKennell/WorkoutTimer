@@ -12,6 +12,11 @@
 #import "WorkoutViewController.h"
 #import "NSString+Utils.h"
 
+@import AudioToolbox;
+
+#define NORMAL_CELL_BACKGROUND_COLOR [UIColor colorWithRed:0.931821f green:0.931821f blue:0.931821f alpha:1.0f]
+#define HIGHLIGHTED_CELL_BACKGROUND_COLOR [UIColor colorWithRed:1.0f green:0.833506 blue:0.23678 alpha:1.0f]
+
 #define START_WORKOUT_FILENAME @"start_workout"
 #define START_WARMUP_WORKOUT_FILENAME @"begin_warmup"
 #define BEFORE_INTENSE_FILENAME @"before_intense"
@@ -26,6 +31,7 @@
 
 @property IBOutlet UITableView *tableView;
 @property NSInteger currentSection;
+@property NSTimer *countDownTimer;
 
 @end
 
@@ -36,7 +42,7 @@
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
-    
+    self.currentSection = -1;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
     WorkoutSection *warmupSection = [WorkoutSection sectionWithDuration:180.0f name:@"Warmup"];
@@ -86,8 +92,15 @@
     SectionListTableViewCell *cell = (SectionListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"SectionListTableViewCell" forIndexPath:indexPath];
 
     WorkoutSection *workoutSection = [[[DataStore sharedDataStore] workoutSections] objectAtIndex:indexPath.row];
-    cell.timeLabel.text = [NSString stringWithTimeInterval:workoutSection.duration];
+    cell.timeLabel.text = [NSString stringWithTimeInterval:workoutSection.timeRemaining];
     cell.mainLabel.text = workoutSection.name;
+    
+    if (self.currentSection == indexPath.row) {
+        cell.backgroundColor = HIGHLIGHTED_CELL_BACKGROUND_COLOR;
+    }
+    else {
+        cell.backgroundColor = NORMAL_CELL_BACKGROUND_COLOR;
+    }
     
     return cell;
 }
@@ -98,21 +111,20 @@
 }
 
 - (void)playBeforeSound {
-    ++self.currentSection;
     NSLog(@"Before sound %d", self.currentSection);
     NSArray<WorkoutSection *> *workoutSections = [[DataStore sharedDataStore] workoutSections];
-    if (self.currentSection >= workoutSections.count) {
+    if (self.currentSection >= (NSInteger)workoutSections.count) {
         [self workoutComplete];
         return;
     }
     
-    WorkoutSection *currentSection = workoutSections[self.currentSection];
-    if (currentSection.beforeSound) {
-        NSLog(@"Playing before sound for duration %f", currentSection.beforeSound.duration);
-        [currentSection.beforeSound playThenCallSelector:@selector(playStartSound) onTarget:self];
+    WorkoutSection *nextSection = workoutSections[self.currentSection + 1];
+    if (nextSection.beforeSound) {
+        NSLog(@"Playing before sound for duration %f", nextSection.beforeSound.duration);
+        [nextSection.beforeSound playThenCallSelector:@selector(startSection) onTarget:self];
     }
     else {
-        [self playStartSound];
+        [self startSection];
     }
 }
 
@@ -122,9 +134,10 @@
     if (self.currentSection == 0) {
         [self startMainTimer];
     }
-    [self startSection:self.currentSection];
     
     WorkoutSection *currentSection = [[DataStore sharedDataStore] workoutSections][self.currentSection];
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+
     if (currentSection.startSound) {
         NSLog(@"Playing start sound for duration %f", currentSection.startSound.duration);
         [currentSection.startSound playThenCallSelector:@selector(runSection) onTarget:self];
@@ -152,14 +165,22 @@
     NSTimer *tempTimer = [NSTimer scheduledTimerWithTimeInterval:runDuration target:self selector:@selector(playBeforeSound) userInfo:nil repeats:NO];
 }
 
-- (void)startSection:(NSInteger)sectionIndex {
-    // Start the timer in sectionIndex
+- (void)startSection {
+    ++self.currentSection;
+    [self playStartSound];
     // Stop the timer in sectionIndex - 1 if sectionIndex > 0
     // Change main bottom label to indicate current section
 }
 
 - (void)startMainTimer {
-    // Start the main bottom timer
+    self.countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(decrementTime) userInfo:nil repeats:YES];
+}
+
+- (void)decrementTime {
+    NSArray<WorkoutSection *> *workoutSections = [[DataStore sharedDataStore] workoutSections];
+    WorkoutSection *currentSection = workoutSections[self.currentSection];
+    currentSection.timeRemaining -= 1.0f;
+    [self.tableView reloadData];
 }
 
 - (void)workoutComplete {
