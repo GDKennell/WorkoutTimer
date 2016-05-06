@@ -17,6 +17,9 @@
 #define NORMAL_CELL_BACKGROUND_COLOR [UIColor colorWithRed:0.931821f green:0.931821f blue:0.931821f alpha:1.0f]
 #define HIGHLIGHTED_CELL_BACKGROUND_COLOR [UIColor colorWithRed:1.0f green:0.833506 blue:0.23678 alpha:1.0f]
 
+#define BOTTOM_BAR_BUTTON_COLOR [UIColor colorWithRed:0.118455f green:1 blue:0.52467 alpha:1.0f]
+#define BOTTOM_BAR_DISPLAY_COLOR HIGHLIGHTED_CELL_BACKGROUND_COLOR
+
 #define START_WORKOUT_FILENAME @"start_workout"
 #define START_WARMUP_WORKOUT_FILENAME @"begin_warmup"
 #define BEFORE_INTENSE_FILENAME @"before_intense"
@@ -33,7 +36,8 @@
 @property NSInteger currentSection;
 @property NSTimer *countDownTimer;
 
-// Bottom Label
+// Bottom section
+@property IBOutlet UIView *bottomBarContainer;
 @property IBOutlet UILabel *totalTimeLabel;
 @property IBOutlet UILabel *bottomMiddleLabel;
 @property IBOutlet UILabel *sectionNumberLabel;
@@ -56,19 +60,19 @@
     self.currentSection = -1;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
-    WorkoutSection *warmupSection = [WorkoutSection sectionWithDuration:10.0f name:@"Warmup"];
+    WorkoutSection *warmupSection = [WorkoutSection sectionWithDuration:180.0f name:@"Warmup"];
     warmupSection.beforeSound = [WorkoutSound soundWithFileName:START_WORKOUT_FILENAME];
     warmupSection.startSound = [WorkoutSound soundWithFileName:START_WARMUP_WORKOUT_FILENAME];
     
-    WorkoutSection *intenseSection = [WorkoutSection sectionWithDuration:10.0f name:@"Intense"];
+    WorkoutSection *intenseSection = [WorkoutSection sectionWithDuration:20.0f name:@"Intense"];
     intenseSection.beforeSound = [WorkoutSound soundWithFileName:BEFORE_INTENSE_FILENAME];
     intenseSection.startSound = [WorkoutSound soundWithFileName:START_INTENSE_FILENAME];
 
-    WorkoutSection *slowSection = [WorkoutSection sectionWithDuration:10.0f name:@"Slow"];
+    WorkoutSection *slowSection = [WorkoutSection sectionWithDuration:120.0f name:@"Slow"];
     slowSection.beforeSound = [WorkoutSound soundWithFileName:BEFORE_SLOW_FILENAME];
     slowSection.startSound = [WorkoutSound soundWithFileName:START_SLOW_FILENAME];
     
-    WorkoutSection *cooldownSection = [WorkoutSection sectionWithDuration:10.0f name:@"Cooldown"];
+    WorkoutSection *cooldownSection = [WorkoutSection sectionWithDuration:120.0f name:@"Cooldown"];
     cooldownSection.beforeSound = [WorkoutSound soundWithFileName:BEFORE_COOLDOWN_FILENAME];
     cooldownSection.startSound = [WorkoutSound soundWithFileName:START_COOLDOWN_FILENAME];
 
@@ -92,6 +96,7 @@
     [self.sectionNumberLabel setHidden:YES];
     self.bottomMiddleLabel.text = @"Start Workout";
     self.totalTimeLeft = [[DataStore sharedDataStore] totalWorkoutTime];
+    self.bottomBarContainer.backgroundColor = BOTTOM_BAR_BUTTON_COLOR;
 }
 
 - (void)updateBottomBar {
@@ -102,6 +107,7 @@
     [self.sectionNumberLabel setHidden:NO];
 
     self.bottomMiddleLabel.text = [[[[DataStore sharedDataStore] workoutSections] objectAtIndex:self.currentSection] name];
+    self.bottomBarContainer.backgroundColor = BOTTOM_BAR_DISPLAY_COLOR;
 }
 
 - (void)didReceiveMemoryWarning {
