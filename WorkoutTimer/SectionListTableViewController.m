@@ -70,9 +70,9 @@
     [dataStore addWorkoutSection:warmupSection];
     [dataStore addWorkoutSection:intenseSection];
     [dataStore addWorkoutSection:slowSection];
-    [dataStore addWorkoutSection:intenseSection];
-    [dataStore addWorkoutSection:slowSection];
-    [dataStore addWorkoutSection:intenseSection];
+    [dataStore addWorkoutSection:[intenseSection copy]];
+    [dataStore addWorkoutSection:[slowSection copy]];
+    [dataStore addWorkoutSection:[intenseSection copy]];
     [dataStore addWorkoutSection:cooldownSection];
 }
 
@@ -117,7 +117,7 @@
 - (void)playBeforeSound {
     NSLog(@"Before sound %d", self.currentSection);
     NSArray<WorkoutSection *> *workoutSections = [[DataStore sharedDataStore] workoutSections];
-    if (self.currentSection >= (NSInteger)workoutSections.count) {
+    if (self.currentSection + 1 >= (NSInteger)workoutSections.count) {
         [self workoutComplete];
         return;
     }

@@ -40,6 +40,15 @@
 
 @implementation WorkoutSection
 
+- (id)copyWithZone:(NSZone *)zone {
+    WorkoutSection *newSection = [WorkoutSection sectionWithDuration:self.duration name:self.name];
+    newSection.timeRemaining = self.timeRemaining;
+    newSection.startSound = self.startSound;
+    newSection.beforeSound = self.beforeSound;
+
+    return newSection;
+}
+
 + (WorkoutSection *)sectionWithDuration:(NSTimeInterval)duration name:(NSString *)name {
     WorkoutSection *newSection = [[WorkoutSection alloc] init];
     newSection.duration = duration;

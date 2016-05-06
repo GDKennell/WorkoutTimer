@@ -96,6 +96,10 @@
                                         <state key="normal" title="Start Workout">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
+                                        <state key="selected">
+                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" cocoaTouchSystemColor="lightTextColor"/>
+                                        </state>
                                         <connections>
                                             <action selector="startWorkoutButtonPressed:" destination="qYf-rT-vHd" eventType="touchUpInside" id="nrq-tQ-Ql6"/>
                                         </connections>

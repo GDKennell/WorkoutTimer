@@ -21,7 +21,7 @@
 
 @end
 
-@interface WorkoutSection : NSObject
+@interface WorkoutSection : NSObject <NSCopying>
 
 @property NSTimeInterval duration;
 @property NSString *name;
