@@ -190,6 +190,10 @@
 - (void)workoutComplete {
     WorkoutSound *workoutCompleteSound = [WorkoutSound soundWithFileName:WORKOUT_COMPLETE_FILENAME];
     [workoutCompleteSound playThenCallSelector:nil onTarget:nil];
+    [self.countDownTimer invalidate];
+    self.countDownTimer = nil;
+    self.currentSection = -1;
+    [self.tableView reloadData];
 }
 
 @end
