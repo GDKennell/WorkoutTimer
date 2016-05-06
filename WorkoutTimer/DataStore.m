@@ -11,7 +11,6 @@
 @interface DataStore ()
 
 @property (readwrite) NSMutableArray<WorkoutSection *> *workoutSections;
-@property NSTimeInterval totalWorkoutTime;
 
 @end
 

@@ -13,6 +13,8 @@
 
 @property (readonly) NSMutableArray *workoutSections;
 
+@property NSTimeInterval totalWorkoutTime;
+
 + (DataStore *)sharedDataStore;
 
 - (void)addWorkoutSection:(WorkoutSection *)section;

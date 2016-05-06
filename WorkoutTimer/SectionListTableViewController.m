@@ -33,6 +33,13 @@
 @property NSInteger currentSection;
 @property NSTimer *countDownTimer;
 
+// Bottom Label
+@property IBOutlet UILabel *totalTimeLabel;
+@property IBOutlet UILabel *bottomMiddleLabel;
+@property IBOutlet UILabel *sectionNumberLabel;
+
+@property NSTimeInterval totalTimeLeft;
+
 @end
 
 @implementation SectionListTableViewController
@@ -49,19 +56,19 @@
     self.currentSection = -1;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
-    WorkoutSection *warmupSection = [WorkoutSection sectionWithDuration:180.0f name:@"Warmup"];
+    WorkoutSection *warmupSection = [WorkoutSection sectionWithDuration:10.0f name:@"Warmup"];
     warmupSection.beforeSound = [WorkoutSound soundWithFileName:START_WORKOUT_FILENAME];
     warmupSection.startSound = [WorkoutSound soundWithFileName:START_WARMUP_WORKOUT_FILENAME];
     
-    WorkoutSection *intenseSection = [WorkoutSection sectionWithDuration:20.0f name:@"Intense"];
+    WorkoutSection *intenseSection = [WorkoutSection sectionWithDuration:10.0f name:@"Intense"];
     intenseSection.beforeSound = [WorkoutSound soundWithFileName:BEFORE_INTENSE_FILENAME];
     intenseSection.startSound = [WorkoutSound soundWithFileName:START_INTENSE_FILENAME];
 
-    WorkoutSection *slowSection = [WorkoutSection sectionWithDuration:120.0f name:@"Slow"];
+    WorkoutSection *slowSection = [WorkoutSection sectionWithDuration:10.0f name:@"Slow"];
     slowSection.beforeSound = [WorkoutSound soundWithFileName:BEFORE_SLOW_FILENAME];
     slowSection.startSound = [WorkoutSound soundWithFileName:START_SLOW_FILENAME];
     
-    WorkoutSection *cooldownSection = [WorkoutSection sectionWithDuration:120.0f name:@"Cooldown"];
+    WorkoutSection *cooldownSection = [WorkoutSection sectionWithDuration:10.0f name:@"Cooldown"];
     cooldownSection.beforeSound = [WorkoutSound soundWithFileName:BEFORE_COOLDOWN_FILENAME];
     cooldownSection.startSound = [WorkoutSound soundWithFileName:START_COOLDOWN_FILENAME];
 
@@ -74,6 +81,27 @@
     [dataStore addWorkoutSection:[slowSection copy]];
     [dataStore addWorkoutSection:[intenseSection copy]];
     [dataStore addWorkoutSection:cooldownSection];
+    
+    self.totalTimeLeft = dataStore.totalWorkoutTime;
+    
+    [self resetBottomBar];
+}
+
+- (void)resetBottomBar {
+    [self.totalTimeLabel setHidden:YES];
+    [self.sectionNumberLabel setHidden:YES];
+    self.bottomMiddleLabel.text = @"Start Workout";
+    self.totalTimeLeft = [[DataStore sharedDataStore] totalWorkoutTime];
+}
+
+- (void)updateBottomBar {
+    self.totalTimeLabel.text = [NSString stringWithTimeInterval:0.0f];
+    [self.totalTimeLabel setHidden:NO];
+    
+    self.sectionNumberLabel.text = [NSString stringWithFormat:@"%ld / %ld", (long)self.currentSection + 1, (long)[[[DataStore sharedDataStore] workoutSections] count]];
+    [self.sectionNumberLabel setHidden:NO];
+
+    self.bottomMiddleLabel.text = [[[[DataStore sharedDataStore] workoutSections] objectAtIndex:self.currentSection] name];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -101,6 +129,7 @@
     
     if (self.currentSection == indexPath.row) {
         cell.backgroundColor = HIGHLIGHTED_CELL_BACKGROUND_COLOR;
+        self.bottomMiddleLabel.text = workoutSection.name;
     }
     else {
         cell.backgroundColor = NORMAL_CELL_BACKGROUND_COLOR;
@@ -171,12 +200,15 @@
 
 - (void)startSection {
     ++self.currentSection;
+    [self updateBottomBar];
+
     [self playStartSound];
     // Stop the timer in sectionIndex - 1 if sectionIndex > 0
     // Change main bottom label to indicate current section
 }
 
 - (void)startMainTimer {
+    [self updateBottomBar];
     self.countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(decrementTime) userInfo:nil repeats:YES];
 }
 
@@ -184,6 +216,9 @@
     NSArray<WorkoutSection *> *workoutSections = [[DataStore sharedDataStore] workoutSections];
     WorkoutSection *currentSection = workoutSections[self.currentSection];
     currentSection.timeRemaining -= 1.0f;
+    self.totalTimeLeft -= 1.0f;
+    NSTimeInterval elapsedTime = [[DataStore sharedDataStore] totalWorkoutTime] - self.totalTimeLeft;
+    self.totalTimeLabel.text = [NSString stringWithTimeInterval:elapsedTime];
     [self.tableView reloadData];
 }
 
@@ -197,6 +232,7 @@
         section.timeRemaining = section.duration;
     }
     [self.tableView reloadData];
+    [self resetBottomBar];
 }
 
 @end
