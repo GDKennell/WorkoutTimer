@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA14D6861CDD325E00DAE876 /* start_workout.caf in Resources */ = {isa = PBXBuildFile; fileRef = CA14D6841CDD313F00DAE876 /* start_workout.caf */; };
+		CA14D6871CDD326100DAE876 /* start_slow.caf in Resources */ = {isa = PBXBuildFile; fileRef = CA14D6831CDD313F00DAE876 /* start_slow.caf */; };
+		CA14D6881CDD326400DAE876 /* workout_complete.caf in Resources */ = {isa = PBXBuildFile; fileRef = CA14D6851CDD313F00DAE876 /* workout_complete.caf */; };
+		CA14D6891CDD326800DAE876 /* start_intense.caf in Resources */ = {isa = PBXBuildFile; fileRef = CA14D6821CDD313F00DAE876 /* start_intense.caf */; };
+		CA14D68A1CDD326A00DAE876 /* start_cooldown.caf in Resources */ = {isa = PBXBuildFile; fileRef = CA14D6811CDD313F00DAE876 /* start_cooldown.caf */; };
+		CA14D68B1CDD326C00DAE876 /* begin_warmup.caf in Resources */ = {isa = PBXBuildFile; fileRef = CA14D6801CDD313F00DAE876 /* begin_warmup.caf */; };
+		CA14D68C1CDD326F00DAE876 /* before_slow.caf in Resources */ = {isa = PBXBuildFile; fileRef = CA14D67F1CDD313F00DAE876 /* before_slow.caf */; };
+		CA14D68D1CDD327100DAE876 /* before_intense.caf in Resources */ = {isa = PBXBuildFile; fileRef = CA14D67E1CDD313F00DAE876 /* before_intense.caf */; };
+		CA14D68E1CDD327400DAE876 /* before_cooldown.caf in Resources */ = {isa = PBXBuildFile; fileRef = CA14D67D1CDD313F00DAE876 /* before_cooldown.caf */; };
 		CAC6C0221CDB8FD100102AF0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC6C0211CDB8FD100102AF0 /* main.m */; };
 		CAC6C0251CDB8FD100102AF0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC6C0241CDB8FD100102AF0 /* AppDelegate.m */; };
 		CAC6C0281CDB8FD100102AF0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC6C0271CDB8FD100102AF0 /* ViewController.m */; };
@@ -24,6 +33,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CA14D67D1CDD313F00DAE876 /* before_cooldown.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = before_cooldown.caf; path = Audio/before_cooldown.caf; sourceTree = "<group>"; };
+		CA14D67E1CDD313F00DAE876 /* before_intense.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = before_intense.caf; path = Audio/before_intense.caf; sourceTree = "<group>"; };
+		CA14D67F1CDD313F00DAE876 /* before_slow.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = before_slow.caf; path = Audio/before_slow.caf; sourceTree = "<group>"; };
+		CA14D6801CDD313F00DAE876 /* begin_warmup.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = begin_warmup.caf; path = Audio/begin_warmup.caf; sourceTree = "<group>"; };
+		CA14D6811CDD313F00DAE876 /* start_cooldown.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = start_cooldown.caf; path = Audio/start_cooldown.caf; sourceTree = "<group>"; };
+		CA14D6821CDD313F00DAE876 /* start_intense.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = start_intense.caf; path = Audio/start_intense.caf; sourceTree = "<group>"; };
+		CA14D6831CDD313F00DAE876 /* start_slow.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = start_slow.caf; path = Audio/start_slow.caf; sourceTree = "<group>"; };
+		CA14D6841CDD313F00DAE876 /* start_workout.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = start_workout.caf; path = Audio/start_workout.caf; sourceTree = "<group>"; };
+		CA14D6851CDD313F00DAE876 /* workout_complete.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = workout_complete.caf; path = Audio/workout_complete.caf; sourceTree = "<group>"; };
 		CAC6C01D1CDB8FD100102AF0 /* WorkoutTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkoutTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAC6C0211CDB8FD100102AF0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CAC6C0231CDB8FD100102AF0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -63,6 +81,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CA14D67C1CDD313500DAE876 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				CA14D67D1CDD313F00DAE876 /* before_cooldown.caf */,
+				CA14D67E1CDD313F00DAE876 /* before_intense.caf */,
+				CA14D67F1CDD313F00DAE876 /* before_slow.caf */,
+				CA14D6801CDD313F00DAE876 /* begin_warmup.caf */,
+				CA14D6811CDD313F00DAE876 /* start_cooldown.caf */,
+				CA14D6821CDD313F00DAE876 /* start_intense.caf */,
+				CA14D6831CDD313F00DAE876 /* start_slow.caf */,
+				CA14D6841CDD313F00DAE876 /* start_workout.caf */,
+				CA14D6851CDD313F00DAE876 /* workout_complete.caf */,
+			);
+			name = Audio;
+			sourceTree = "<group>";
+		};
 		CAC6C0141CDB8FD100102AF0 = {
 			isa = PBXGroup;
 			children = (
@@ -82,6 +116,7 @@
 		CAC6C01F1CDB8FD100102AF0 /* WorkoutTimer */ = {
 			isa = PBXGroup;
 			children = (
+				CA14D67C1CDD313500DAE876 /* Audio */,
 				CAC6C0461CDBA0A900102AF0 /* UIView+Utils.h */,
 				CAC6C0471CDBA0A900102AF0 /* UIView+Utils.m */,
 				CAC6C04F1CDBB41C00102AF0 /* NSString+Utils.h */,
@@ -177,6 +212,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAC6C0301CDB8FD100102AF0 /* LaunchScreen.storyboard in Resources */,
+				CA14D68B1CDD326C00DAE876 /* begin_warmup.caf in Resources */,
+				CA14D68E1CDD327400DAE876 /* before_cooldown.caf in Resources */,
+				CA14D6891CDD326800DAE876 /* start_intense.caf in Resources */,
+				CA14D6861CDD325E00DAE876 /* start_workout.caf in Resources */,
+				CA14D68C1CDD326F00DAE876 /* before_slow.caf in Resources */,
+				CA14D6871CDD326100DAE876 /* start_slow.caf in Resources */,
+				CA14D68A1CDD326A00DAE876 /* start_cooldown.caf in Resources */,
+				CA14D6881CDD326400DAE876 /* workout_complete.caf in Resources */,
+				CA14D68D1CDD327100DAE876 /* before_intense.caf in Resources */,
 				CAC6C02D1CDB8FD100102AF0 /* Assets.xcassets in Resources */,
 				CAC6C02B1CDB8FD100102AF0 /* Main.storyboard in Resources */,
 			);
@@ -348,6 +392,7 @@
 				CAC6C0361CDB8FD100102AF0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

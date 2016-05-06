@@ -15,7 +15,7 @@
 @property SystemSoundID soundId;
 @property NSTimeInterval duration;
 
-+ (WorkoutSound *)soundWithFileName:(NSString *)soundName duration:(NSTimeInterval)duration;
++ (WorkoutSound *)soundWithFileName:(NSString *)soundName;
 
 - (void)playThenCallSelector:(SEL)sel onTarget:(id)target;
 

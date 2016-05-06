@@ -8,17 +8,26 @@
 
 #import "WorkoutSection.h"
 
+#import <AVFoundation/AVAudioPlayer.h>
+
 @implementation WorkoutSound
 
-+ (WorkoutSound *)soundWithFileName:(NSString *)soundName duration:(NSTimeInterval)duration {
++ (WorkoutSound *)soundWithFileName:(NSString *)soundName {
     WorkoutSound *newSound = [[WorkoutSound alloc] init];
     NSString *soundPath = [[NSBundle mainBundle]
                             pathForResource:soundName ofType:@"caf"];
+    NSAssert(soundPath != nil, @"Could not get path for sound name %@", soundName);
     NSURL *soundURL = [NSURL fileURLWithPath:soundPath];
     SystemSoundID soundId;
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundURL, &soundId);
     newSound.soundId = soundId;
-    newSound.duration = duration;
+    
+    NSError *error = nil;
+    AVAudioPlayer* avAudioPlayer = [[AVAudioPlayer alloc]initWithContentsOfURL:soundURL error:&error];
+    NSAssert(avAudioPlayer && !error, @"Failure : %@", error);
+    
+    newSound.duration = avAudioPlayer.duration;
+
     return newSound;
 }
 
