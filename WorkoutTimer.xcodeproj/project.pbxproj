@@ -16,6 +16,7 @@
 		CA14D68C1CDD326F00DAE876 /* before_slow.caf in Resources */ = {isa = PBXBuildFile; fileRef = CA14D67F1CDD313F00DAE876 /* before_slow.caf */; };
 		CA14D68D1CDD327100DAE876 /* before_intense.caf in Resources */ = {isa = PBXBuildFile; fileRef = CA14D67E1CDD313F00DAE876 /* before_intense.caf */; };
 		CA14D68E1CDD327400DAE876 /* before_cooldown.caf in Resources */ = {isa = PBXBuildFile; fileRef = CA14D67D1CDD313F00DAE876 /* before_cooldown.caf */; };
+		CA14D6901CDD401B00DAE876 /* silence.caf in Resources */ = {isa = PBXBuildFile; fileRef = CA14D68F1CDD3FC800DAE876 /* silence.caf */; };
 		CAC6C0221CDB8FD100102AF0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC6C0211CDB8FD100102AF0 /* main.m */; };
 		CAC6C0251CDB8FD100102AF0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC6C0241CDB8FD100102AF0 /* AppDelegate.m */; };
 		CAC6C0281CDB8FD100102AF0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC6C0271CDB8FD100102AF0 /* ViewController.m */; };
@@ -42,6 +43,7 @@
 		CA14D6831CDD313F00DAE876 /* start_slow.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = start_slow.caf; path = Audio/start_slow.caf; sourceTree = "<group>"; };
 		CA14D6841CDD313F00DAE876 /* start_workout.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = start_workout.caf; path = Audio/start_workout.caf; sourceTree = "<group>"; };
 		CA14D6851CDD313F00DAE876 /* workout_complete.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = workout_complete.caf; path = Audio/workout_complete.caf; sourceTree = "<group>"; };
+		CA14D68F1CDD3FC800DAE876 /* silence.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = silence.caf; path = Audio/silence.caf; sourceTree = "<group>"; };
 		CAC6C01D1CDB8FD100102AF0 /* WorkoutTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkoutTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAC6C0211CDB8FD100102AF0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CAC6C0231CDB8FD100102AF0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				CA14D67E1CDD313F00DAE876 /* before_intense.caf */,
 				CA14D67F1CDD313F00DAE876 /* before_slow.caf */,
 				CA14D6801CDD313F00DAE876 /* begin_warmup.caf */,
+				CA14D68F1CDD3FC800DAE876 /* silence.caf */,
 				CA14D6811CDD313F00DAE876 /* start_cooldown.caf */,
 				CA14D6821CDD313F00DAE876 /* start_intense.caf */,
 				CA14D6831CDD313F00DAE876 /* start_slow.caf */,
@@ -212,6 +215,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAC6C0301CDB8FD100102AF0 /* LaunchScreen.storyboard in Resources */,
+				CA14D6901CDD401B00DAE876 /* silence.caf in Resources */,
 				CA14D68B1CDD326C00DAE876 /* begin_warmup.caf in Resources */,
 				CA14D68E1CDD327400DAE876 /* before_cooldown.caf in Resources */,
 				CA14D6891CDD326800DAE876 /* start_intense.caf in Resources */,

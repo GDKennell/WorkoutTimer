@@ -40,6 +40,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Play silence first because of delay in first sound
+    WorkoutSound *silence = [WorkoutSound soundWithFileName:@"silence"];
+    [silence playThenCallSelector:nil onTarget:nil];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     self.currentSection = -1;
