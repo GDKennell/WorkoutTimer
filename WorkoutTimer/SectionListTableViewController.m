@@ -152,7 +152,7 @@
 }
 
 - (void)runSection {
-    NSLog(@"Run Section %d", self.currentSection);
+    NSLog(@"Run Section %ld", (long)self.currentSection);
 
     NSArray<WorkoutSection *> *workoutSections = [[DataStore sharedDataStore] workoutSections];
     WorkoutSection *currentSection = workoutSections[self.currentSection];
@@ -193,6 +193,9 @@
     [self.countDownTimer invalidate];
     self.countDownTimer = nil;
     self.currentSection = -1;
+    for (WorkoutSection *section in [[DataStore sharedDataStore] workoutSections]) {
+        section.timeRemaining = section.duration;
+    }
     [self.tableView reloadData];
 }
 
