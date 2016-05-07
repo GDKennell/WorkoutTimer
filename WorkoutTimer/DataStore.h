@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "WorkoutSection.h"
 
-@interface DataStore : NSObject
+@interface DataStore : NSObject <NSCoding>
 
-@property (readonly) NSMutableArray *workoutSections;
+@property (readonly) NSMutableArray<WorkoutSection *> *workoutSections;
 
 @property NSTimeInterval totalWorkoutTime;
 

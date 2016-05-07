@@ -12,6 +12,29 @@
 
 @implementation WorkoutSound
 
+#pragma mark - NSCoding
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+    
+    self.soundId = [decoder decodeInt32ForKey:@"soundId"];
+    self.fileName = [decoder decodeObjectForKey:@"fileName"];
+    self.duration = [decoder decodeDoubleForKey:@"duration"];
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeInt32:self.soundId forKey:@"soundId"];
+    [encoder encodeObject:self.fileName forKey:@"fileName"];
+    [encoder encodeDouble:self.duration forKey:@"duration"];
+}
+
+#pragma mark -
+
 + (WorkoutSound *)soundWithFileName:(NSString *)soundName {
     WorkoutSound *newSound = [[WorkoutSound alloc] init];
     NSString *soundPath = [[NSBundle mainBundle]
@@ -27,18 +50,55 @@
     NSAssert(avAudioPlayer && !error, @"Failure : %@", error);
     
     newSound.duration = avAudioPlayer.duration;
-
+    newSound.fileName = [NSString stringWithFormat:@"%@.caf", soundName];
     return newSound;
 }
 
-- (void)playThenCallSelector:(SEL)sel onTarget:(id)target {
+- (NSTimer *)playThenCallSelector:(SEL)sel onTarget:(id)target {
     AudioServicesPlaySystemSound(self.soundId);
-    NSTimer *startTimer = [NSTimer scheduledTimerWithTimeInterval:self.duration target:target selector:sel userInfo:nil repeats:NO];
+    return [NSTimer scheduledTimerWithTimeInterval:self.duration target:target selector:sel userInfo:nil repeats:NO];    
 }
 
 @end
 
+
+/*@property NSTimeInterval duration;
+ @property NSString *name;
+ 
+ @property WorkoutSound *beforeSound;
+ @property WorkoutSound *startSound;
+ 
+ // Calculated property when added to DataStore
+ @property NSTimeInterval startTime;
+ @property NSTimeInterval timeRemaining;
+ 
+*/
 @implementation WorkoutSection
+
+#pragma mark - NSCoding
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+    
+    self.beforeSound = [decoder decodeObjectForKey:@"beforeSound"];
+    self.startSound = [decoder decodeObjectForKey:@"startSound"];
+    self.name = [decoder decodeObjectForKey:@"name"];
+    self.duration = [decoder decodeDoubleForKey:@"duration"];
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeObject:self.name forKey:@"name"];
+    [encoder encodeDouble:self.duration forKey:@"duration"];
+    [encoder encodeObject:self.startSound forKey:@"startSound"];
+    [encoder encodeObject:self.beforeSound forKey:@"beforeSound"];
+}
+
+#pragma mark -
 
 - (id)copyWithZone:(NSZone *)zone {
     WorkoutSection *newSection = [WorkoutSection sectionWithDuration:self.duration name:self.name];

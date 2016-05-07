@@ -30,11 +30,16 @@
 #define START_COOLDOWN_FILENAME @"start_cooldown"
 #define WORKOUT_COMPLETE_FILENAME @"workout_complete"
 
+#define kTotalTimeLeftKey @"TotalTimeLeft"
+#define kAppBackgroundedDate @"AppBackgroundedDate"
+
 @interface SectionListTableViewController ()
 
 @property IBOutlet UITableView *tableView;
 @property NSInteger currentSection;
+
 @property NSTimer *countDownTimer;
+@property NSTimer *currentTimer;
 
 // Bottom section
 @property IBOutlet UIView *bottomBarContainer;
@@ -48,6 +53,10 @@
 
 @implementation SectionListTableViewController
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -60,19 +69,19 @@
     self.currentSection = -1;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
-    WorkoutSection *warmupSection = [WorkoutSection sectionWithDuration:180.0f name:@"Warmup"];
+    WorkoutSection *warmupSection = [WorkoutSection sectionWithDuration:18.0f name:@"Warmup"];
     warmupSection.beforeSound = [WorkoutSound soundWithFileName:START_WORKOUT_FILENAME];
     warmupSection.startSound = [WorkoutSound soundWithFileName:START_WARMUP_WORKOUT_FILENAME];
     
-    WorkoutSection *intenseSection = [WorkoutSection sectionWithDuration:20.0f name:@"Intense"];
+    WorkoutSection *intenseSection = [WorkoutSection sectionWithDuration:12.0f name:@"Intense"];
     intenseSection.beforeSound = [WorkoutSound soundWithFileName:BEFORE_INTENSE_FILENAME];
     intenseSection.startSound = [WorkoutSound soundWithFileName:START_INTENSE_FILENAME];
 
-    WorkoutSection *slowSection = [WorkoutSection sectionWithDuration:120.0f name:@"Slow"];
+    WorkoutSection *slowSection = [WorkoutSection sectionWithDuration:17.0f name:@"Slow"];
     slowSection.beforeSound = [WorkoutSound soundWithFileName:BEFORE_SLOW_FILENAME];
     slowSection.startSound = [WorkoutSound soundWithFileName:START_SLOW_FILENAME];
     
-    WorkoutSection *cooldownSection = [WorkoutSection sectionWithDuration:120.0f name:@"Cooldown"];
+    WorkoutSection *cooldownSection = [WorkoutSection sectionWithDuration:13.0f name:@"Cooldown"];
     cooldownSection.beforeSound = [WorkoutSound soundWithFileName:BEFORE_COOLDOWN_FILENAME];
     cooldownSection.startSound = [WorkoutSound soundWithFileName:START_COOLDOWN_FILENAME];
 
@@ -89,6 +98,70 @@
     self.totalTimeLeft = dataStore.totalWorkoutTime;
     
     [self resetBottomBar];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
+}
+
+- (void)appDidEnterBackground {
+    [[NSUserDefaults standardUserDefaults] setObject:@(self.totalTimeLeft) forKey:kTotalTimeLeftKey];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:kAppBackgroundedDate];
+    [self.countDownTimer invalidate];
+    self.countDownTimer = nil;
+    [self.currentTimer invalidate];
+    self.currentTimer = nil;
+}
+
+- (void)appWillEnterForeground {
+    NSDate *backgroundedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kAppBackgroundedDate];
+    NSTimeInterval timeInBackground = [[NSDate date] timeIntervalSinceDate:backgroundedDate];
+    NSTimeInterval previousTotalTimeLeft = [[[NSUserDefaults standardUserDefaults] objectForKey:kTotalTimeLeftKey] doubleValue];
+    self.totalTimeLeft = previousTotalTimeLeft - timeInBackground;
+    NSTimeInterval totalElapsedTime = [[DataStore sharedDataStore] totalWorkoutTime] - self.totalTimeLeft;
+    
+    NSArray<WorkoutSection *> *workoutSections = [[DataStore sharedDataStore] workoutSections];
+    NSTimeInterval tempTime = 0.0f;
+    self.currentSection = -1;
+    for (WorkoutSection *section in workoutSections) {
+        ++self.currentSection;
+        section.startTime = tempTime;
+        tempTime += section.duration;
+        if (totalElapsedTime < tempTime) {
+            NSTimeInterval sectionTimeElapsed = totalElapsedTime - section.startTime;
+            section.timeRemaining = section.duration - sectionTimeElapsed;
+            break;
+        }
+        else {
+            section.timeRemaining = 0.0f;
+        }
+    }
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    [self startMainTimer];
+
+    WorkoutSection *currentSection = [[[DataStore sharedDataStore] workoutSections] objectAtIndex:self.currentSection];
+
+    NSTimeInterval timeElapsedInCurrentSection = totalElapsedTime - currentSection.startTime;
+    NSTimeInterval timeRemainingInCurentSection = currentSection.duration - timeElapsedInCurrentSection;
+
+    // If in last section
+    if (self.currentSection == [[[DataStore sharedDataStore] workoutSections] count] - 1) {
+        self.currentTimer = [NSTimer scheduledTimerWithTimeInterval:timeRemainingInCurentSection target:self selector:@selector(workoutComplete) userInfo:nil repeats:NO];
+    }
+    else {
+        WorkoutSection *nextSection =[[[DataStore sharedDataStore] workoutSections] objectAtIndex:self.currentSection + 1];
+        NSTimeInterval timeUntilNextBeforeSound = timeRemainingInCurentSection - nextSection.beforeSound.duration;
+        if (timeUntilNextBeforeSound > 0) {
+            self.currentTimer = [NSTimer scheduledTimerWithTimeInterval:timeUntilNextBeforeSound target:self selector:@selector(playBeforeSound) userInfo:nil repeats:NO];
+        }
+        else {
+            // Have to do this increment here because normally it's done in the playBeforeSound method
+            ++self.currentSection;
+            self.currentTimer = [NSTimer scheduledTimerWithTimeInterval:timeRemainingInCurentSection target:self selector:@selector(playStartSound) userInfo:nil repeats:NO];
+        }
+    }
+    
+//    NSTimeInterval remainingSectionTime =
+//    self.currentTimer = [NSTimer scheduledTimerWithTimeInterval:remainingSectionTime target:self selector:@selector(playBeforeSound) userInfo:nil repeats:NO];
 }
 
 - (void)resetBottomBar {
@@ -100,7 +173,8 @@
 }
 
 - (void)updateBottomBar {
-    self.totalTimeLabel.text = [NSString stringWithTimeInterval:0.0f];
+    NSTimeInterval elapsedTime = [[DataStore sharedDataStore] totalWorkoutTime] - self.totalTimeLeft;
+    self.totalTimeLabel.text = [NSString stringWithTimeInterval:elapsedTime];
     [self.totalTimeLabel setHidden:NO];
     
     self.sectionNumberLabel.text = [NSString stringWithFormat:@"%ld / %ld", (long)self.currentSection + 1, (long)[[[DataStore sharedDataStore] workoutSections] count]];
@@ -160,7 +234,7 @@
     WorkoutSection *nextSection = workoutSections[self.currentSection + 1];
     if (nextSection.beforeSound) {
         NSLog(@"Playing before sound for duration %f", nextSection.beforeSound.duration);
-        [nextSection.beforeSound playThenCallSelector:@selector(startSection) onTarget:self];
+        self.currentTimer = [nextSection.beforeSound playThenCallSelector:@selector(startSection) onTarget:self];
     }
     else {
         [self startSection];
@@ -179,7 +253,7 @@
 
     if (currentSection.startSound) {
         NSLog(@"Playing start sound for duration %f", currentSection.startSound.duration);
-        [currentSection.startSound playThenCallSelector:@selector(runSection) onTarget:self];
+        self.currentTimer = [currentSection.startSound playThenCallSelector:@selector(runSection) onTarget:self];
     }
     else {
         [self runSection];
@@ -201,7 +275,7 @@
     
     NSLog(@"Running for duration %f", runDuration);
 
-    NSTimer *tempTimer = [NSTimer scheduledTimerWithTimeInterval:runDuration target:self selector:@selector(playBeforeSound) userInfo:nil repeats:NO];
+    self.currentTimer = [NSTimer scheduledTimerWithTimeInterval:runDuration target:self selector:@selector(playBeforeSound) userInfo:nil repeats:NO];
 }
 
 - (void)startSection {
@@ -215,7 +289,25 @@
 
 - (void)startMainTimer {
     [self updateBottomBar];
+    [self scheduleLocalNotifications];
     self.countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(decrementTime) userInfo:nil repeats:YES];
+}
+
+- (void)scheduleLocalNotifications {
+    NSDate *fireDate = [NSDate date];
+    for (WorkoutSection *section in [[DataStore sharedDataStore] workoutSections]) {
+        UILocalNotification *notification = [[UILocalNotification alloc] init];
+        notification.fireDate = fireDate;
+        notification.soundName = section.startSound.fileName;
+        notification.alertBody = [NSString stringWithFormat:@"Start %@ section", section.name];
+        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+        fireDate = [NSDate dateWithTimeInterval:section.duration sinceDate:fireDate];
+    }
+    UILocalNotification *workoutCompleteNotification = [[UILocalNotification alloc] init];
+    workoutCompleteNotification.fireDate = fireDate;
+    workoutCompleteNotification.soundName = [NSString stringWithFormat:@"%@.caf", WORKOUT_COMPLETE_FILENAME];
+    workoutCompleteNotification.alertBody = @"Workout Complete";
+    [[UIApplication sharedApplication] scheduleLocalNotification:workoutCompleteNotification];
 }
 
 - (void)decrementTime {

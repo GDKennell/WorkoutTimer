@@ -16,6 +16,24 @@
 
 @implementation DataStore
 
+#pragma mark - NSCoding
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+    self.workoutSections = [decoder decodeObjectForKey:@"workoutSections"];
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeObject:self.workoutSections forKey:@"workoutSections"];
+}
+
+#pragma mark -
+
 + (DataStore *)sharedDataStore {
     static DataStore *theStore = nil;
     if (!theStore) {

@@ -10,18 +10,19 @@
 
 @import AudioToolbox;
 
-@interface WorkoutSound : NSObject
+@interface WorkoutSound : NSObject <NSCoding>
 
 @property SystemSoundID soundId;
+@property NSString *fileName;
 @property NSTimeInterval duration;
 
 + (WorkoutSound *)soundWithFileName:(NSString *)soundName;
 
-- (void)playThenCallSelector:(SEL)sel onTarget:(id)target;
+- (NSTimer *)playThenCallSelector:(SEL)sel onTarget:(id)target;
 
 @end
 
-@interface WorkoutSection : NSObject <NSCopying>
+@interface WorkoutSection : NSObject <NSCopying, NSCoding>
 
 @property NSTimeInterval duration;
 @property NSString *name;
