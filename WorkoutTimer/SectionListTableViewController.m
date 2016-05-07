@@ -69,19 +69,19 @@
     self.currentSection = -1;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
-    WorkoutSection *warmupSection = [WorkoutSection sectionWithDuration:18.0f name:@"Warmup"];
+    WorkoutSection *warmupSection = [WorkoutSection sectionWithDuration:180.0f name:@"Warmup"];
     warmupSection.beforeSound = [WorkoutSound soundWithFileName:START_WORKOUT_FILENAME];
     warmupSection.startSound = [WorkoutSound soundWithFileName:START_WARMUP_WORKOUT_FILENAME];
     
-    WorkoutSection *intenseSection = [WorkoutSection sectionWithDuration:12.0f name:@"Intense"];
+    WorkoutSection *intenseSection = [WorkoutSection sectionWithDuration:20.0f name:@"Intense"];
     intenseSection.beforeSound = [WorkoutSound soundWithFileName:BEFORE_INTENSE_FILENAME];
     intenseSection.startSound = [WorkoutSound soundWithFileName:START_INTENSE_FILENAME];
 
-    WorkoutSection *slowSection = [WorkoutSection sectionWithDuration:17.0f name:@"Slow"];
+    WorkoutSection *slowSection = [WorkoutSection sectionWithDuration:120.0f name:@"Slow"];
     slowSection.beforeSound = [WorkoutSound soundWithFileName:BEFORE_SLOW_FILENAME];
     slowSection.startSound = [WorkoutSound soundWithFileName:START_SLOW_FILENAME];
     
-    WorkoutSection *cooldownSection = [WorkoutSection sectionWithDuration:13.0f name:@"Cooldown"];
+    WorkoutSection *cooldownSection = [WorkoutSection sectionWithDuration:120.0f name:@"Cooldown"];
     cooldownSection.beforeSound = [WorkoutSound soundWithFileName:BEFORE_COOLDOWN_FILENAME];
     cooldownSection.startSound = [WorkoutSound soundWithFileName:START_COOLDOWN_FILENAME];
 
@@ -294,6 +294,7 @@
 }
 
 - (void)scheduleLocalNotifications {
+    NSDate *startDate = [NSDate date];
     NSDate *fireDate = [NSDate date];
     for (WorkoutSection *section in [[DataStore sharedDataStore] workoutSections]) {
         UILocalNotification *notification = [[UILocalNotification alloc] init];
@@ -301,6 +302,8 @@
         notification.soundName = section.startSound.fileName;
         notification.alertBody = [NSString stringWithFormat:@"Start %@ section", section.name];
         [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+        NSLog(@"Scheduled notifcation for section %@ %f seconds from now", section.name, [fireDate timeIntervalSinceDate:startDate]);
+        
         fireDate = [NSDate dateWithTimeInterval:section.duration sinceDate:fireDate];
     }
     UILocalNotification *workoutCompleteNotification = [[UILocalNotification alloc] init];

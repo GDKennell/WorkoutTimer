@@ -44,6 +44,7 @@
 		CA14D6841CDD313F00DAE876 /* start_workout.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = start_workout.caf; path = Audio/start_workout.caf; sourceTree = "<group>"; };
 		CA14D6851CDD313F00DAE876 /* workout_complete.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = workout_complete.caf; path = Audio/workout_complete.caf; sourceTree = "<group>"; };
 		CA14D68F1CDD3FC800DAE876 /* silence.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = silence.caf; path = Audio/silence.caf; sourceTree = "<group>"; };
+		CA14D6931CDEA95200DAE876 /* WorkoutTimer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = WorkoutTimer.entitlements; sourceTree = "<group>"; };
 		CAC6C01D1CDB8FD100102AF0 /* WorkoutTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkoutTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAC6C0211CDB8FD100102AF0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CAC6C0231CDB8FD100102AF0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -119,6 +120,7 @@
 		CAC6C01F1CDB8FD100102AF0 /* WorkoutTimer */ = {
 			isa = PBXGroup;
 			children = (
+				CA14D6931CDEA95200DAE876 /* WorkoutTimer.entitlements */,
 				CA14D67C1CDD313500DAE876 /* Audio */,
 				CAC6C0461CDBA0A900102AF0 /* UIView+Utils.h */,
 				CAC6C0471CDBA0A900102AF0 /* UIView+Utils.m */,
@@ -188,6 +190,12 @@
 				TargetAttributes = {
 					CAC6C01C1CDB8FD100102AF0 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = GCMEVBUV6F;
+						SystemCapabilities = {
+							com.apple.InterAppAudio = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
