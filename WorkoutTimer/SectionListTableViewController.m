@@ -154,9 +154,7 @@
             self.currentTimer = [NSTimer scheduledTimerWithTimeInterval:timeUntilNextBeforeSound target:self selector:@selector(playBeforeSound) userInfo:nil repeats:NO];
         }
         else {
-            // Have to do this increment here because normally it's done in the playBeforeSound method
-            ++self.currentSection;
-            self.currentTimer = [NSTimer scheduledTimerWithTimeInterval:timeRemainingInCurentSection target:self selector:@selector(playStartSound) userInfo:nil repeats:NO];
+            self.currentTimer = [NSTimer scheduledTimerWithTimeInterval:timeRemainingInCurentSection target:self selector:@selector(playStartSoundAndIncrementCurrentSection) userInfo:nil repeats:NO];
         }
     }
     
@@ -219,6 +217,7 @@
 }
 
 - (IBAction)startWorkoutButtonPressed:(id)sender {
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
     self.currentSection = -1; // playBeforeSound will do the increment
     [self playBeforeSound];
 }
@@ -239,6 +238,11 @@
     else {
         [self startSection];
     }
+}
+
+- (void)playStartSoundAndIncrementCurrentSection {
+    ++self.currentSection;
+    [self playStartSound];
 }
 
 - (void)playStartSound {
@@ -294,15 +298,19 @@
 }
 
 - (void)scheduleLocalNotifications {
-    NSDate *startDate = [NSDate date];
-    NSDate *fireDate = [NSDate date];
-    for (WorkoutSection *section in [[DataStore sharedDataStore] workoutSections]) {
+    WorkoutSection *currentSection = [[[DataStore sharedDataStore] workoutSections] objectAtIndex:self.currentSection];
+    NSTimeInterval totalElapsedTime = [[DataStore sharedDataStore] totalWorkoutTime] - self.totalTimeLeft;
+    NSTimeInterval timeElapsedInCurrentSection = totalElapsedTime - currentSection.startTime;
+    NSTimeInterval timeRemainingInCurentSection = currentSection.duration - timeElapsedInCurrentSection;
+
+    NSDate *fireDate = [NSDate dateWithTimeIntervalSinceNow:timeRemainingInCurentSection];
+    for (NSInteger sectionIndex = self.currentSection + 1; sectionIndex < [[[DataStore sharedDataStore] workoutSections] count]; ++sectionIndex) {
+        WorkoutSection *section = [[[DataStore sharedDataStore] workoutSections] objectAtIndex:sectionIndex];
         UILocalNotification *notification = [[UILocalNotification alloc] init];
         notification.fireDate = fireDate;
         notification.soundName = section.startSound.fileName;
         notification.alertBody = [NSString stringWithFormat:@"Start %@ section", section.name];
         [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-        NSLog(@"Scheduled notifcation for section %@ %f seconds from now", section.name, [fireDate timeIntervalSinceDate:startDate]);
         
         fireDate = [NSDate dateWithTimeInterval:section.duration sinceDate:fireDate];
     }
