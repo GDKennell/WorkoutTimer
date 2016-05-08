@@ -29,13 +29,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="350" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3F2-Em-lSq" userLabel="Separator View">
-                                                    <rect key="frame" x="-7" y="40" width="398" height="1"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="1" id="sZY-yg-oyz"/>
-                                                    </constraints>
-                                                </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ndR-by-dgt" userLabel="Inner View">
                                                     <rect key="frame" x="8" y="0.0" width="334" height="41"/>
                                                     <subviews>
@@ -66,11 +59,8 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="ndR-by-dgt" firstAttribute="top" secondItem="xQu-xb-N2n" secondAttribute="topMargin" id="2xz-LS-fhH"/>
-                                                <constraint firstItem="3F2-Em-lSq" firstAttribute="leading" secondItem="xQu-xb-N2n" secondAttribute="leadingMargin" constant="-15" id="7fP-ql-AlA"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="3F2-Em-lSq" secondAttribute="bottom" id="8ih-t4-Ocv"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="ndR-by-dgt" secondAttribute="bottom" id="MUV-1a-F0e"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="ndR-by-dgt" secondAttribute="trailing" id="e35-ni-XXl"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="3F2-Em-lSq" secondAttribute="trailing" constant="-49" id="pY5-uA-eTf"/>
                                                 <constraint firstItem="ndR-by-dgt" firstAttribute="leading" secondItem="xQu-xb-N2n" secondAttribute="leadingMargin" id="wiD-5G-t5f"/>
                                             </constraints>
                                             <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="2" right="8"/>
