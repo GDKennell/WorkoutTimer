@@ -12,7 +12,7 @@
 
 + (NSString *)stringWithTimeInterval:(NSTimeInterval)duration {
     NSInteger numSeconds = (NSInteger)round(duration) % 60;
-    NSInteger numMinutes = (NSInteger)round(duration / 60);
+    NSInteger numMinutes = (NSInteger)floor(duration / 60);
     return [NSString stringWithFormat:@"%02d:%02d", numMinutes, numSeconds];
 }
 
