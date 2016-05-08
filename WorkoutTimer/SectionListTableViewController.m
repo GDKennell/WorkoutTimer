@@ -33,6 +33,7 @@
 #define kTotalTimeLeftKey @"TotalTimeLeft"
 #define kAppBackgroundedDate @"AppBackgroundedDate"
 #define kWorkoutPausedKey @"WorkoutPaused"
+#define kWorkoutInProgressKey @"WorkoutInProgress"
 
 @interface SectionListTableViewController ()
 
@@ -120,6 +121,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:@(self.totalTimeLeft) forKey:kTotalTimeLeftKey];
     [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:kAppBackgroundedDate];
     [[NSUserDefaults standardUserDefaults] setBool:self.isWorkoutPaused forKey:kWorkoutPausedKey];
+    [[NSUserDefaults standardUserDefaults] setBool:self.isWorkoutInProgress forKey:kWorkoutInProgressKey];
     [self.countDownTimer invalidate];
     self.countDownTimer = nil;
     [self.currentTimer invalidate];
@@ -188,7 +190,7 @@
         NSTimeInterval timeInBackground = [[NSDate date] timeIntervalSinceDate:backgroundedDate];
 
         NSTimeInterval totalTimeLeft =  previousTotalTimeLeft - timeInBackground;
-        if (totalTimeLeft > 0) {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:kWorkoutInProgressKey] && totalTimeLeft > 0) {
             self.totalTimeLeft = totalTimeLeft;
             [self restoreCurrentSection];
             [self resumeWorkout];
@@ -274,6 +276,7 @@
 - (IBAction)startWorkoutButtonPressed:(id)sender {
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     self.currentSection = -1; // playBeforeSound will do the increment
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kWorkoutInProgressKey];
     [self playBeforeSound];
     [self.startWorkoutButton setEnabled:NO];
 }
@@ -391,6 +394,7 @@
 
 - (void)workoutComplete {
     [self workoutCompleteAndPlaySound:YES];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kWorkoutInProgressKey];
 }
 
 - (void)workoutCompleteAndPlaySound:(BOOL)playSound {
