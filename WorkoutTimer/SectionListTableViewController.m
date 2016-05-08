@@ -32,6 +32,7 @@
 
 #define kTotalTimeLeftKey @"TotalTimeLeft"
 #define kAppBackgroundedDate @"AppBackgroundedDate"
+#define kWorkoutPausedKey @"WorkoutPaused"
 
 @interface SectionListTableViewController ()
 
@@ -48,6 +49,11 @@
 @property IBOutlet UILabel *sectionNumberLabel;
 
 @property NSTimeInterval totalTimeLeft;
+
+@property UIBarButtonItem *playPauseButton;
+
+@property BOOL isWorkoutPaused;
+@property (readonly) BOOL isWorkoutInProgress;
 
 @end
 
@@ -67,13 +73,16 @@
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     self.currentSection = -1;
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.playPauseButton = [[UIBarButtonItem alloc] initWithTitle:@"Pause" style:UIBarButtonItemStyleDone target:self action:@selector(playPauseButtonPressed)];
+    [self.playPauseButton setEnabled:NO];
+
+    self.navigationItem.rightBarButtonItem = self.playPauseButton;
 
     WorkoutSection *warmupSection = [WorkoutSection sectionWithDuration:180.0f name:@"Warmup"];
     warmupSection.beforeSound = [WorkoutSound soundWithFileName:START_WORKOUT_FILENAME];
     warmupSection.startSound = [WorkoutSound soundWithFileName:START_WARMUP_WORKOUT_FILENAME];
     
-    WorkoutSection *intenseSection = [WorkoutSection sectionWithDuration:20.0f name:@"Intense"];
+    WorkoutSection *intenseSection = [WorkoutSection sectionWithDuration: 20.0f name:@"Intense"];
     intenseSection.beforeSound = [WorkoutSound soundWithFileName:BEFORE_INTENSE_FILENAME];
     intenseSection.startSound = [WorkoutSound soundWithFileName:START_INTENSE_FILENAME];
 
@@ -99,6 +108,8 @@
     
     [self resetBottomBar];
     
+    self.isWorkoutPaused = NO;
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
@@ -106,17 +117,14 @@
 - (void)appDidEnterBackground {
     [[NSUserDefaults standardUserDefaults] setObject:@(self.totalTimeLeft) forKey:kTotalTimeLeftKey];
     [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:kAppBackgroundedDate];
+    [[NSUserDefaults standardUserDefaults] setBool:self.isWorkoutPaused forKey:kWorkoutPausedKey];
     [self.countDownTimer invalidate];
     self.countDownTimer = nil;
     [self.currentTimer invalidate];
     self.currentTimer = nil;
 }
 
-- (void)appWillEnterForeground {
-    NSDate *backgroundedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kAppBackgroundedDate];
-    NSTimeInterval timeInBackground = [[NSDate date] timeIntervalSinceDate:backgroundedDate];
-    NSTimeInterval previousTotalTimeLeft = [[[NSUserDefaults standardUserDefaults] objectForKey:kTotalTimeLeftKey] doubleValue];
-    self.totalTimeLeft = previousTotalTimeLeft - timeInBackground;
+- (void)resumeWorkout {
     NSTimeInterval totalElapsedTime = [[DataStore sharedDataStore] totalWorkoutTime] - self.totalTimeLeft;
     
     NSArray<WorkoutSection *> *workoutSections = [[DataStore sharedDataStore] workoutSections];
@@ -137,12 +145,12 @@
     }
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     [self startMainTimer];
-
+    
     WorkoutSection *currentSection = [[[DataStore sharedDataStore] workoutSections] objectAtIndex:self.currentSection];
-
+    
     NSTimeInterval timeElapsedInCurrentSection = totalElapsedTime - currentSection.startTime;
     NSTimeInterval timeRemainingInCurentSection = currentSection.duration - timeElapsedInCurrentSection;
-
+    
     // If in last section
     if (self.currentSection == [[[DataStore sharedDataStore] workoutSections] count] - 1) {
         self.currentTimer = [NSTimer scheduledTimerWithTimeInterval:timeRemainingInCurentSection target:self selector:@selector(workoutComplete) userInfo:nil repeats:NO];
@@ -157,9 +165,17 @@
             self.currentTimer = [NSTimer scheduledTimerWithTimeInterval:timeRemainingInCurentSection target:self selector:@selector(playStartSoundAndIncrementCurrentSection) userInfo:nil repeats:NO];
         }
     }
-    
-//    NSTimeInterval remainingSectionTime =
-//    self.currentTimer = [NSTimer scheduledTimerWithTimeInterval:remainingSectionTime target:self selector:@selector(playBeforeSound) userInfo:nil repeats:NO];
+}
+
+- (void)appWillEnterForeground {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:kWorkoutPausedKey]) {
+        NSDate *backgroundedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kAppBackgroundedDate];
+        NSTimeInterval timeInBackground = [[NSDate date] timeIntervalSinceDate:backgroundedDate];
+        NSTimeInterval previousTotalTimeLeft = [[[NSUserDefaults standardUserDefaults] objectForKey:kTotalTimeLeftKey] doubleValue];
+        self.totalTimeLeft = previousTotalTimeLeft - timeInBackground;
+        
+        [self resumeWorkout];
+    }
 }
 
 - (void)resetBottomBar {
@@ -214,6 +230,23 @@
     }
     
     return cell;
+}
+
+- (void)playPauseButtonPressed {
+    if (self.isWorkoutInProgress) {
+        self.isWorkoutPaused = YES;
+        [[UIApplication sharedApplication] cancelAllLocalNotifications];
+        [self.playPauseButton setTitle:@"Resume"];
+        [self.countDownTimer invalidate];
+        self.countDownTimer = nil;
+        [self.currentTimer invalidate];
+        self.currentTimer = nil;
+    }
+    else {
+        self.isWorkoutPaused = NO;
+        [self.playPauseButton setTitle:@"Pause"];
+        [self resumeWorkout];
+    }
 }
 
 - (IBAction)startWorkoutButtonPressed:(id)sender {
@@ -295,6 +328,7 @@
     [self updateBottomBar];
     [self scheduleLocalNotifications];
     self.countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(decrementTime) userInfo:nil repeats:YES];
+    [self.playPauseButton setEnabled:YES];
 }
 
 - (void)scheduleLocalNotifications {
@@ -342,6 +376,15 @@
     }
     [self.tableView reloadData];
     [self resetBottomBar];
+    [self.playPauseButton setEnabled:NO];
+}
+
+- (BOOL)isWorkoutInProgress {
+    return self.countDownTimer != nil;
+}
+
+- (BOOL)isIsWorkoutPaused {
+    return !self.isWorkoutInProgress && self.totalTimeLeft < [[DataStore sharedDataStore] totalWorkoutTime];
 }
 
 @end
