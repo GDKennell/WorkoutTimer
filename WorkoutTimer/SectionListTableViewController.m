@@ -343,6 +343,7 @@
     [self updateBottomBar];
 
     [self playStartSound];
+    [self.tableView reloadData];
     // Stop the timer in sectionIndex - 1 if sectionIndex > 0
     // Change main bottom label to indicate current section
 }
