@@ -170,6 +170,7 @@
                         <outlet property="bottomBarContainer" destination="hYa-pV-lFQ" id="2M1-aC-wmT"/>
                         <outlet property="bottomMiddleLabel" destination="fjL-66-h04" id="hQy-rx-HGR"/>
                         <outlet property="sectionNumberLabel" destination="q1j-mq-oz4" id="XCh-bQ-OuL"/>
+                        <outlet property="startWorkoutButton" destination="3En-XG-hxT" id="xaM-5Z-ewk"/>
                         <outlet property="tableView" destination="USa-GT-YgB" id="r1J-L5-Lnk"/>
                         <outlet property="totalTimeLabel" destination="eNC-Hw-UNd" id="OBQ-EV-e1S"/>
                     </connections>

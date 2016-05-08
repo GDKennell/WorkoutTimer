@@ -47,6 +47,7 @@
 @property IBOutlet UILabel *totalTimeLabel;
 @property IBOutlet UILabel *bottomMiddleLabel;
 @property IBOutlet UILabel *sectionNumberLabel;
+@property IBOutlet UIButton *startWorkoutButton;
 
 @property NSTimeInterval totalTimeLeft;
 
@@ -182,6 +183,7 @@
     [self.totalTimeLabel setHidden:YES];
     [self.sectionNumberLabel setHidden:YES];
     self.bottomMiddleLabel.text = @"Start Workout";
+    [self.startWorkoutButton setEnabled:YES];
     self.totalTimeLeft = [[DataStore sharedDataStore] totalWorkoutTime];
     self.bottomBarContainer.backgroundColor = BOTTOM_BAR_BUTTON_COLOR;
 }
@@ -253,6 +255,7 @@
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     self.currentSection = -1; // playBeforeSound will do the increment
     [self playBeforeSound];
+    [self.startWorkoutButton setEnabled:NO];
 }
 
 - (void)playBeforeSound {
