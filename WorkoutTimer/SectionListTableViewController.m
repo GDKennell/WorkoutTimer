@@ -78,7 +78,8 @@
     [self.playPauseButton setEnabled:NO];
 
     self.navigationItem.rightBarButtonItem = self.playPauseButton;
-
+    self.navigationItem.title = @"Workout Timer";
+    
     WorkoutSection *warmupSection = [WorkoutSection sectionWithDuration:180.0f name:@"Warmup"];
     warmupSection.beforeSound = [WorkoutSound soundWithFileName:START_WORKOUT_FILENAME];
     warmupSection.startSound = [WorkoutSound soundWithFileName:START_WARMUP_WORKOUT_FILENAME];
@@ -107,9 +108,9 @@
     
     self.totalTimeLeft = dataStore.totalWorkoutTime;
     
-    [self resetBottomBar];
-    
     self.isWorkoutPaused = NO;
+
+    [self appWillEnterForeground];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
@@ -125,7 +126,7 @@
     self.currentTimer = nil;
 }
 
-- (void)resumeWorkout {
+- (void)restoreCurrentSection {
     NSTimeInterval totalElapsedTime = [[DataStore sharedDataStore] totalWorkoutTime] - self.totalTimeLeft;
     
     NSArray<WorkoutSection *> *workoutSections = [[DataStore sharedDataStore] workoutSections];
@@ -144,11 +145,15 @@
             section.timeRemaining = 0.0f;
         }
     }
+}
+
+- (void)resumeWorkout {
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     [self startMainTimer];
     
     WorkoutSection *currentSection = [[[DataStore sharedDataStore] workoutSections] objectAtIndex:self.currentSection];
     
+    NSTimeInterval totalElapsedTime = [[DataStore sharedDataStore] totalWorkoutTime] - self.totalTimeLeft;
     NSTimeInterval timeElapsedInCurrentSection = totalElapsedTime - currentSection.startTime;
     NSTimeInterval timeRemainingInCurentSection = currentSection.duration - timeElapsedInCurrentSection;
     
@@ -169,13 +174,28 @@
 }
 
 - (void)appWillEnterForeground {
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:kWorkoutPausedKey]) {
+    NSTimeInterval previousTotalTimeLeft = [[[NSUserDefaults standardUserDefaults] objectForKey:kTotalTimeLeftKey] doubleValue];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kWorkoutPausedKey]) {
+        self.isWorkoutPaused = YES;
+        [self.playPauseButton setEnabled:YES];
+        [self.playPauseButton setTitle:@"Resume"];
+        self.totalTimeLeft = previousTotalTimeLeft;
+        [self restoreCurrentSection];
+        [self updateBottomBar];
+    }
+    else {
         NSDate *backgroundedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kAppBackgroundedDate];
         NSTimeInterval timeInBackground = [[NSDate date] timeIntervalSinceDate:backgroundedDate];
-        NSTimeInterval previousTotalTimeLeft = [[[NSUserDefaults standardUserDefaults] objectForKey:kTotalTimeLeftKey] doubleValue];
-        self.totalTimeLeft = previousTotalTimeLeft - timeInBackground;
-        
-        [self resumeWorkout];
+
+        NSTimeInterval totalTimeLeft =  previousTotalTimeLeft - timeInBackground;
+        if (totalTimeLeft > 0) {
+            self.totalTimeLeft = totalTimeLeft;
+            [self restoreCurrentSection];
+            [self resumeWorkout];
+        }
+        else {
+            [self workoutCompleteAndPlaySound:NO];
+        }
     }
 }
 
@@ -262,7 +282,7 @@
     NSLog(@"Before sound %d", self.currentSection);
     NSArray<WorkoutSection *> *workoutSections = [[DataStore sharedDataStore] workoutSections];
     if (self.currentSection + 1 >= (NSInteger)workoutSections.count) {
-        [self workoutComplete];
+        [self workoutCompleteAndPlaySound:YES];
         return;
     }
     
@@ -369,8 +389,14 @@
 }
 
 - (void)workoutComplete {
-    WorkoutSound *workoutCompleteSound = [WorkoutSound soundWithFileName:WORKOUT_COMPLETE_FILENAME];
-    [workoutCompleteSound playThenCallSelector:nil onTarget:nil];
+    [self workoutCompleteAndPlaySound:YES];
+}
+
+- (void)workoutCompleteAndPlaySound:(BOOL)playSound {
+    if (playSound) {
+        WorkoutSound *workoutCompleteSound = [WorkoutSound soundWithFileName:WORKOUT_COMPLETE_FILENAME];
+        [workoutCompleteSound playThenCallSelector:nil onTarget:nil];
+    }
     [self.countDownTimer invalidate];
     self.countDownTimer = nil;
     self.currentSection = -1;
