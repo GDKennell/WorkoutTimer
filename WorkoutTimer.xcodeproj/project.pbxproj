@@ -45,7 +45,7 @@
 		CA14D6851CDD313F00DAE876 /* workout_complete.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = workout_complete.caf; path = Audio/workout_complete.caf; sourceTree = "<group>"; };
 		CA14D68F1CDD3FC800DAE876 /* silence.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = silence.caf; path = Audio/silence.caf; sourceTree = "<group>"; };
 		CA14D6931CDEA95200DAE876 /* WorkoutTimer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = WorkoutTimer.entitlements; sourceTree = "<group>"; };
-		CAC6C01D1CDB8FD100102AF0 /* WorkoutTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkoutTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAC6C01D1CDB8FD100102AF0 /* Workout Timer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Workout Timer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAC6C0211CDB8FD100102AF0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CAC6C0231CDB8FD100102AF0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CAC6C0241CDB8FD100102AF0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 		CAC6C01E1CDB8FD100102AF0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CAC6C01D1CDB8FD100102AF0 /* WorkoutTimer.app */,
+				CAC6C01D1CDB8FD100102AF0 /* Workout Timer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -176,7 +176,7 @@
 			);
 			name = WorkoutTimer;
 			productName = WorkoutTimer;
-			productReference = CAC6C01D1CDB8FD100102AF0 /* WorkoutTimer.app */;
+			productReference = CAC6C01D1CDB8FD100102AF0 /* Workout Timer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -370,7 +370,7 @@
 				INFOPLIST_FILE = WorkoutTimer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.grantkennell.WorkoutTimer;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Workout Timer";
 			};
 			name = Debug;
 		};
@@ -381,7 +381,7 @@
 				INFOPLIST_FILE = WorkoutTimer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.grantkennell.WorkoutTimer;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Workout Timer";
 			};
 			name = Release;
 		};
