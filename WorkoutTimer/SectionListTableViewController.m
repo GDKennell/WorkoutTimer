@@ -52,6 +52,7 @@
 
 @property NSTimeInterval totalTimeLeft;
 
+@property UIBarButtonItem *resetButton;
 @property UIBarButtonItem *playPauseButton;
 
 @property BOOL isWorkoutPaused;
@@ -75,9 +76,14 @@
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     self.currentSection = -1;
+    
+    self.resetButton = [[UIBarButtonItem alloc] initWithTitle:@"Reset" style:UIBarButtonItemStyleDone target:self action:@selector(resetButtonPressed)];
+    [self.resetButton setEnabled:NO];
+    
     self.playPauseButton = [[UIBarButtonItem alloc] initWithTitle:@"Pause" style:UIBarButtonItemStyleDone target:self action:@selector(playPauseButtonPressed)];
     [self.playPauseButton setEnabled:NO];
 
+    self.navigationItem.leftBarButtonItem = self.resetButton;
     self.navigationItem.rightBarButtonItem = self.playPauseButton;
     self.navigationItem.title = @"Workout Timer";
     
@@ -184,6 +190,7 @@
         self.totalTimeLeft = previousTotalTimeLeft;
         [self restoreCurrentSection];
         [self updateBottomBar];
+        [self.resetButton setEnabled:YES];
     }
     else {
         NSDate *backgroundedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kAppBackgroundedDate];
@@ -194,6 +201,7 @@
             self.totalTimeLeft = totalTimeLeft;
             [self restoreCurrentSection];
             [self resumeWorkout];
+            [self.resetButton setEnabled:YES];
         }
         else {
             [self workoutCompleteAndPlaySound:NO];
@@ -271,6 +279,11 @@
         [self.playPauseButton setTitle:@"Pause"];
         [self resumeWorkout];
     }
+}
+
+- (void)resetButtonPressed {
+    self.isWorkoutPaused = NO;
+    [self workoutCompleteAndPlaySound:NO];
 }
 
 - (IBAction)startWorkoutButtonPressed:(id)sender {
@@ -356,6 +369,7 @@
     [self scheduleLocalNotifications];
     self.countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(decrementTime) userInfo:nil repeats:YES];
     [self.playPauseButton setEnabled:YES];
+    [self.resetButton setEnabled:YES];
 }
 
 - (void)scheduleLocalNotifications {
@@ -411,6 +425,8 @@
     [self.tableView reloadData];
     [self resetBottomBar];
     [self.playPauseButton setEnabled:NO];
+    [self.resetButton setEnabled:NO];
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
 - (BOOL)isWorkoutInProgress {
