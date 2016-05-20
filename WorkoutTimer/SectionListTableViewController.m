@@ -50,10 +50,11 @@
 @property IBOutlet UILabel *sectionNumberLabel;
 @property IBOutlet UIButton *startWorkoutButton;
 
+@property IBOutlet UIButton *resetButton;
+@property IBOutlet UIButton *playPauseButton;
+
 @property NSTimeInterval totalTimeLeft;
 
-@property UIBarButtonItem *resetButton;
-@property UIBarButtonItem *playPauseButton;
 
 @property BOOL isWorkoutPaused;
 @property (readonly) BOOL isWorkoutInProgress;
@@ -77,14 +78,9 @@
     // self.clearsSelectionOnViewWillAppear = NO;
     self.currentSection = -1;
     
-    self.resetButton = [[UIBarButtonItem alloc] initWithTitle:@"Reset" style:UIBarButtonItemStyleDone target:self action:@selector(resetButtonPressed)];
     [self.resetButton setEnabled:NO];
-    
-    self.playPauseButton = [[UIBarButtonItem alloc] initWithTitle:@"Pause" style:UIBarButtonItemStyleDone target:self action:@selector(playPauseButtonPressed)];
     [self.playPauseButton setEnabled:NO];
 
-    self.navigationItem.leftBarButtonItem = self.resetButton;
-    self.navigationItem.rightBarButtonItem = self.playPauseButton;
     self.navigationItem.title = @"Workout Timer";
     
     WorkoutSection *warmupSection = [WorkoutSection sectionWithDuration:180.0f name:@"Warmup"];
@@ -186,7 +182,8 @@
     if ([[NSUserDefaults standardUserDefaults] boolForKey:kWorkoutPausedKey]) {
         self.isWorkoutPaused = YES;
         [self.playPauseButton setEnabled:YES];
-        [self.playPauseButton setTitle:@"Resume"];
+        [self.playPauseButton setTitle:@"Resume" forState:UIControlStateNormal];
+
         self.totalTimeLeft = previousTotalTimeLeft;
         [self restoreCurrentSection];
         [self updateBottomBar];
@@ -264,11 +261,11 @@
     return cell;
 }
 
-- (void)playPauseButtonPressed {
+- (IBAction)playPauseButtonPressed {
     if (self.isWorkoutInProgress) {
         self.isWorkoutPaused = YES;
         [[UIApplication sharedApplication] cancelAllLocalNotifications];
-        [self.playPauseButton setTitle:@"Resume"];
+        [self.playPauseButton setTitle:@"Resume" forState:UIControlStateNormal];
         [self.countDownTimer invalidate];
         self.countDownTimer = nil;
         [self.currentTimer invalidate];
@@ -276,12 +273,12 @@
     }
     else {
         self.isWorkoutPaused = NO;
-        [self.playPauseButton setTitle:@"Pause"];
+        [self.playPauseButton setTitle:@"Pause" forState:UIControlStateNormal];
         [self resumeWorkout];
     }
 }
 
-- (void)resetButtonPressed {
+- (IBAction)resetButtonPressed {
     self.isWorkoutPaused = NO;
     [self workoutCompleteAndPlaySound:NO];
 }
@@ -368,6 +365,7 @@
     [self updateBottomBar];
     [self scheduleLocalNotifications];
     self.countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(decrementTime) userInfo:nil repeats:YES];
+    [self.playPauseButton setTitle:@"Pause" forState:UIControlStateNormal];
     [self.playPauseButton setEnabled:YES];
     [self.resetButton setEnabled:YES];
 }
@@ -426,6 +424,7 @@
     [self resetBottomBar];
     [self.playPauseButton setEnabled:NO];
     [self.resetButton setEnabled:NO];
+
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
