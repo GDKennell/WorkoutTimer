@@ -81,7 +81,7 @@
     [self.resetButton setEnabled:NO];
     [self.playPauseButton setEnabled:NO];
 
-    self.navigationItem.title = @"Workout Timer";
+    self.navigationItem.title = @"10:1 Interval";
     
     WorkoutSection *warmupSection = [WorkoutSection sectionWithDuration:180.0f name:@"Warmup"];
     warmupSection.beforeSound = [WorkoutSound soundWithFileName:START_WORKOUT_FILENAME];
