@@ -12,6 +12,8 @@
 #import "WorkoutViewController.h"
 #import "NSString+Utils.h"
 
+#import "AboutViewController.h"
+
 @import AudioToolbox;
 
 #define NORMAL_CELL_BACKGROUND_COLOR [UIColor colorWithRed:0.931821f green:0.931821f blue:0.931821f alpha:1.0f]
@@ -276,6 +278,12 @@
         [self.playPauseButton setTitle:@"Pause" forState:UIControlStateNormal];
         [self resumeWorkout];
     }
+}
+
+- (IBAction)aboutButtonPressed:(id)sender {
+    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    AboutViewController *aboutVC = [mainStoryBoard instantiateViewControllerWithIdentifier:@"AboutVC"];
+    [self presentViewController:aboutVC animated:YES completion:nil];
 }
 
 - (IBAction)resetButtonPressed {

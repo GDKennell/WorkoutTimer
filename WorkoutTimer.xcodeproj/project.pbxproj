@@ -17,6 +17,7 @@
 		CA14D68D1CDD327100DAE876 /* before_intense.caf in Resources */ = {isa = PBXBuildFile; fileRef = CA14D67E1CDD313F00DAE876 /* before_intense.caf */; };
 		CA14D68E1CDD327400DAE876 /* before_cooldown.caf in Resources */ = {isa = PBXBuildFile; fileRef = CA14D67D1CDD313F00DAE876 /* before_cooldown.caf */; };
 		CA14D6901CDD401B00DAE876 /* silence.caf in Resources */ = {isa = PBXBuildFile; fileRef = CA14D68F1CDD3FC800DAE876 /* silence.caf */; };
+		CA828D541CF2240C00959DC3 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA828D531CF2240C00959DC3 /* AboutViewController.m */; };
 		CAC6C0221CDB8FD100102AF0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC6C0211CDB8FD100102AF0 /* main.m */; };
 		CAC6C0251CDB8FD100102AF0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC6C0241CDB8FD100102AF0 /* AppDelegate.m */; };
 		CAC6C0281CDB8FD100102AF0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC6C0271CDB8FD100102AF0 /* ViewController.m */; };
@@ -45,6 +46,8 @@
 		CA14D6851CDD313F00DAE876 /* workout_complete.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = workout_complete.caf; path = Audio/workout_complete.caf; sourceTree = "<group>"; };
 		CA14D68F1CDD3FC800DAE876 /* silence.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = silence.caf; path = Audio/silence.caf; sourceTree = "<group>"; };
 		CA14D6931CDEA95200DAE876 /* WorkoutTimer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = WorkoutTimer.entitlements; sourceTree = "<group>"; };
+		CA828D521CF2240C00959DC3 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		CA828D531CF2240C00959DC3 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		CAC6C01D1CDB8FD100102AF0 /* 10:1 Interval.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "10:1 Interval.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAC6C0211CDB8FD100102AF0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CAC6C0231CDB8FD100102AF0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -134,6 +137,8 @@
 				CAC6C03B1CDB956200102AF0 /* SectionListTableViewCell.m */,
 				CAC6C0371CDB941F00102AF0 /* SectionListTableViewController.h */,
 				CAC6C0381CDB941F00102AF0 /* SectionListTableViewController.m */,
+				CA828D521CF2240C00959DC3 /* AboutViewController.h */,
+				CA828D531CF2240C00959DC3 /* AboutViewController.m */,
 				CAC6C0431CDB9E5500102AF0 /* WorkoutViewController.h */,
 				CAC6C0441CDB9E5500102AF0 /* WorkoutViewController.m */,
 				CAC6C0491CDBA39700102AF0 /* WorkoutTableViewCell.h */,
@@ -251,6 +256,7 @@
 				CAC6C0481CDBA0A900102AF0 /* UIView+Utils.m in Sources */,
 				CAC6C0511CDBB41C00102AF0 /* NSString+Utils.m in Sources */,
 				CAC6C0391CDB941F00102AF0 /* SectionListTableViewController.m in Sources */,
+				CA828D541CF2240C00959DC3 /* AboutViewController.m in Sources */,
 				CAC6C0451CDB9E5500102AF0 /* WorkoutViewController.m in Sources */,
 				CAC6C03C1CDB956200102AF0 /* SectionListTableViewCell.m in Sources */,
 				CAC6C0221CDB8FD100102AF0 /* main.m in Sources */,
