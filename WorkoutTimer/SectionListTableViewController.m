@@ -440,6 +440,10 @@
     }
     [self.countDownTimer invalidate];
     self.countDownTimer = nil;
+
+    [self.currentTimer invalidate];
+    self.currentTimer = nil;
+
     self.currentSection = -1;
     for (WorkoutSection *section in [[DataStore sharedDataStore] workoutSections]) {
         section.timeRemaining = section.duration;
