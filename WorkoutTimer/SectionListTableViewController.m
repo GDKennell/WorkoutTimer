@@ -387,19 +387,19 @@
     NSDate *fireDate = [NSDate dateWithTimeIntervalSinceNow:timeRemainingInCurentSection];
     for (NSInteger sectionIndex = self.currentSection + 1; sectionIndex < [[[DataStore sharedDataStore] workoutSections] count]; ++sectionIndex) {
         WorkoutSection *section = [[[DataStore sharedDataStore] workoutSections] objectAtIndex:sectionIndex];
-        UILocalNotification *notification = [[UILocalNotification alloc] init];
-        notification.fireDate = fireDate;
-        notification.soundName = section.startSound.fileName;
-        notification.alertBody = [NSString stringWithFormat:@"Start %@ section", section.name];
-        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+        [self scheduleLocalNotificationWithFireDate:fireDate alertBody:[NSString stringWithFormat:@"Start %@ section", section.name] soundName:section.startSound.fileName];
         
         fireDate = [NSDate dateWithTimeInterval:section.duration sinceDate:fireDate];
     }
-    UILocalNotification *workoutCompleteNotification = [[UILocalNotification alloc] init];
-    workoutCompleteNotification.fireDate = fireDate;
-    workoutCompleteNotification.soundName = [NSString stringWithFormat:@"%@.caf", WORKOUT_COMPLETE_FILENAME];
-    workoutCompleteNotification.alertBody = @"Workout Complete";
-    [[UIApplication sharedApplication] scheduleLocalNotification:workoutCompleteNotification];
+    [self scheduleLocalNotificationWithFireDate:fireDate alertBody:@"Workout Complete" soundName:[NSString stringWithFormat:@"%@.caf",WORKOUT_COMPLETE_FILENAME]];
+}
+
+- (void)scheduleLocalNotificationWithFireDate:(NSDate *)fireDate alertBody:(NSString *)alertBody soundName:(NSString *)filename {
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.fireDate = fireDate;
+    notification.soundName = filename;
+    notification.alertBody = alertBody;
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
 - (void)decrementTime {
