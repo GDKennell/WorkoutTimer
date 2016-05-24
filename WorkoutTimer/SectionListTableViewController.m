@@ -383,13 +383,29 @@
     NSTimeInterval totalElapsedTime = [[DataStore sharedDataStore] totalWorkoutTime] - self.totalTimeLeft;
     NSTimeInterval timeElapsedInCurrentSection = totalElapsedTime - currentSection.startTime;
     NSTimeInterval timeRemainingInCurentSection = currentSection.duration - timeElapsedInCurrentSection;
-
+    
     NSDate *fireDate = [NSDate dateWithTimeIntervalSinceNow:timeRemainingInCurentSection];
     for (NSInteger sectionIndex = self.currentSection + 1; sectionIndex < [[[DataStore sharedDataStore] workoutSections] count]; ++sectionIndex) {
         WorkoutSection *section = [[[DataStore sharedDataStore] workoutSections] objectAtIndex:sectionIndex];
+        if (sectionIndex == self.currentSection + 1 && section.beforeSound && section.beforeSound.duration < timeRemainingInCurentSection) {
+            timeRemainingInCurentSection -= section.beforeSound.duration;
+            fireDate = [NSDate dateWithTimeIntervalSinceNow:timeRemainingInCurentSection];
+        }
+        if (section.beforeSound) {
+            [self scheduleLocalNotificationWithFireDate:fireDate alertBody:nil soundName:section.beforeSound.fileName];
+            fireDate = [fireDate initWithTimeInterval:section.beforeSound.duration sinceDate:fireDate];
+        }
         [self scheduleLocalNotificationWithFireDate:fireDate alertBody:[NSString stringWithFormat:@"Start %@ section", section.name] soundName:section.startSound.fileName];
-        
-        fireDate = [NSDate dateWithTimeInterval:section.duration sinceDate:fireDate];
+
+        timeRemainingInCurentSection = section.duration;
+        if (sectionIndex + 1 < [[[DataStore sharedDataStore] workoutSections] count]) {
+            WorkoutSection *nextSection = [[[DataStore sharedDataStore] workoutSections] objectAtIndex:sectionIndex + 1];
+            if (nextSection.beforeSound) {
+                timeRemainingInCurentSection -= nextSection.beforeSound.duration;
+            }
+        }
+
+        fireDate = [NSDate dateWithTimeInterval:timeRemainingInCurentSection sinceDate:fireDate];
     }
     [self scheduleLocalNotificationWithFireDate:fireDate alertBody:@"Workout Complete" soundName:[NSString stringWithFormat:@"%@.caf",WORKOUT_COMPLETE_FILENAME]];
 }
