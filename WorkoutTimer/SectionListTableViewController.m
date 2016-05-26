@@ -282,7 +282,7 @@
 
 - (IBAction)aboutButtonPressed:(id)sender {
     UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    AboutViewController *aboutVC = [mainStoryBoard instantiateViewControllerWithIdentifier:@"AboutVC"];
+    UINavigationController *aboutVC = [mainStoryBoard instantiateViewControllerWithIdentifier:@"AboutVC"];
     [self presentViewController:aboutVC animated:YES completion:nil];
 }
 

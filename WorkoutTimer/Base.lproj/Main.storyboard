@@ -302,10 +302,11 @@
             </objects>
             <point key="canvasLocation" x="-174.5" y="758.5"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--About-->
         <scene sceneID="tYH-AU-kCC">
             <objects>
-                <navigationController id="cfa-Xw-jI5" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="AboutVC" title="About" id="cfa-Xw-jI5" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="OLx-bQ-Gqz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -316,12 +317,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bNm-bz-a9K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="361" y="271"/>
+            <point key="canvasLocation" x="579" y="298"/>
         </scene>
-        <!--The 10:1 Interval Workout-->
+        <!--About-->
         <scene sceneID="eur-gn-IrC">
             <objects>
-                <viewController storyboardIdentifier="AboutVC" automaticallyAdjustsScrollViewInsets="NO" id="zBE-kN-fVg" customClass="AboutViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="zBE-kN-fVg" customClass="AboutViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Uzd-zX-yXX"/>
                         <viewControllerLayoutGuide type="bottom" id="0Hc-4x-tX0"/>
@@ -330,99 +331,134 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zDD-zL-EMN">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zDD-zL-EMN">
                                 <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                                 <subviews>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" bounces="NO" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CfQ-Lh-rM6">
-                                        <rect key="frame" x="0.0" y="0.0" width="328" height="416"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="© Grant Kennell 2016" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lxd-7s-mmY">
+                                        <rect key="frame" x="99" y="396" width="122" height="15"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="15" id="8OH-6Q-CAu"/>
+                                            <constraint firstAttribute="width" constant="122" id="DVu-Hi-UAx"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" red="0.30045402486910999" green="0.30045402486910999" blue="0.30045402486910999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CfQ-Lh-rM6">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="© Grant Kennell 2016" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lxd-7s-mmY">
-                                                <rect key="frame" x="103" y="278" width="122" height="15"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="15" id="8OH-6Q-CAu"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <color key="textColor" red="0.30045402486910999" green="0.30045402486910999" blue="0.30045402486910999" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Welcome to the 10:1 Interval Workout" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="zjB-PK-eu4">
-                                                <rect key="frame" x="2" y="0.0" width="316" height="21"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="21" id="6M5-pK-YGb"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5FJ-K7-Cbr">
-                                                <rect key="frame" x="84" y="240" width="161" height="23"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="IAE-hx-XBU"/>
-                                                    <constraint firstAttribute="width" constant="161" id="b0q-k7-zTW"/>
-                                                    <constraint firstAttribute="height" constant="23" id="n0N-1c-PST"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <state key="normal" title="Read the Article"/>
-                                                <variation key="default">
-                                                    <mask key="constraints">
-                                                        <exclude reference="IAE-hx-XBU"/>
-                                                    </mask>
-                                                </variation>
-                                                <connections>
-                                                    <action selector="openArticle:" destination="zBE-kN-fVg" eventType="touchUpInside" id="YLx-GS-muJ"/>
-                                                </connections>
-                                            </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="wordWrap" numberOfLines="100" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="jBC-3f-2WV" customClass="TopAlignedLabel">
-                                                <rect key="frame" x="39" y="29" width="225" height="214"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="324" id="6fZ-tG-FOA"/>
-                                                </constraints>
-                                                <mutableString key="text">This 10 minute workout with only 1 minute of intense exertion has the health benefits of 45 minutes of prolonged exercise. The workout consists of a 3-minute warmup followed by three 20 second bursts of strenuous exercise broken up by two minute low intensity breaks. This regimen can be done with any exercise. If you're trying to go from nothing to something but don't have the time to dedicate to long workouts, this can be your go-to tool.
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WTK-OZ-1kB">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="394"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="100" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="jBC-3f-2WV" customClass="TopAlignedLabel">
+                                                        <rect key="frame" x="12" y="37" width="296" height="316"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="324" id="6fZ-tG-FOA"/>
+                                                        </constraints>
+                                                        <mutableString key="text">This 10 minute workout with only 1 minute of intense exertion has the health benefits of 45 minutes of prolonged exercise. 
+
+The workout consists of a 3-minute warmup followed by three 20 second bursts of strenuous exercise broken up by two minute low intensity breaks. This regimen can be done with any exercise.
+
+If you're trying to go from nothing to something but don't have the time to dedicate to long workouts, this can be your go-to tool.
 
 As Gretchen Reynolds writes in her April 2016 article for the New york Times, a study from McMaster University showed equal results in groups of out-of-shape young men who did this 10 minute workout compared to those doing slow and steady 45-minute workouts. Over the 12 week period, the endurance group worked for a total of 27 hours while the 10-minute group worked only six hours, and only worked hard for 36 minutes.</mutableString>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <variation key="default">
+                                                            <mask key="constraints">
+                                                                <exclude reference="6fZ-tG-FOA"/>
+                                                            </mask>
+                                                        </variation>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5FJ-K7-Cbr">
+                                                        <rect key="frame" x="80" y="361" width="161" height="23"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="40" id="IAE-hx-XBU"/>
+                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="161" id="NQw-Kp-FKF"/>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="23" id="Ze4-1b-ss4"/>
+                                                            <constraint firstAttribute="width" constant="161" id="b0q-k7-zTW"/>
+                                                            <constraint firstAttribute="height" constant="23" id="n0N-1c-PST"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <state key="normal" title="Read the Article"/>
+                                                        <variation key="default">
+                                                            <mask key="constraints">
+                                                                <exclude reference="IAE-hx-XBU"/>
+                                                                <exclude reference="NQw-Kp-FKF"/>
+                                                                <exclude reference="Ze4-1b-ss4"/>
+                                                            </mask>
+                                                        </variation>
+                                                        <connections>
+                                                            <action selector="openArticle:" destination="zBE-kN-fVg" eventType="touchUpInside" id="YLx-GS-muJ"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The 10:1 Interval Workout" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="zjB-PK-eu4">
+                                                        <rect key="frame" x="50" y="8" width="220" height="21"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="21" id="6M5-pK-YGb"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="zjB-PK-eu4" firstAttribute="centerX" secondItem="WTK-OZ-1kB" secondAttribute="centerX" id="BgR-XA-DsB"/>
+                                                    <constraint firstItem="jBC-3f-2WV" firstAttribute="top" secondItem="zjB-PK-eu4" secondAttribute="bottom" constant="8" id="Clg-gj-9o4"/>
+                                                    <constraint firstItem="5FJ-K7-Cbr" firstAttribute="centerX" secondItem="WTK-OZ-1kB" secondAttribute="centerX" id="KYF-jR-9KM"/>
+                                                    <constraint firstAttribute="trailing" secondItem="jBC-3f-2WV" secondAttribute="trailing" constant="12" id="RwM-I7-QOh"/>
+                                                    <constraint firstItem="5FJ-K7-Cbr" firstAttribute="top" secondItem="jBC-3f-2WV" secondAttribute="bottom" constant="8" id="Upp-HU-78U"/>
+                                                    <constraint firstAttribute="bottom" secondItem="5FJ-K7-Cbr" secondAttribute="bottom" constant="10" id="VZH-OC-yTf"/>
+                                                    <constraint firstItem="5FJ-K7-Cbr" firstAttribute="top" secondItem="jBC-3f-2WV" secondAttribute="bottom" constant="8" id="XFa-w7-cJ3"/>
+                                                    <constraint firstItem="zjB-PK-eu4" firstAttribute="top" secondItem="WTK-OZ-1kB" secondAttribute="top" constant="8" id="fT3-AT-XON"/>
+                                                    <constraint firstItem="jBC-3f-2WV" firstAttribute="leading" secondItem="WTK-OZ-1kB" secondAttribute="leading" constant="12" id="gqN-er-de4"/>
+                                                    <constraint firstItem="jBC-3f-2WV" firstAttribute="top" secondItem="zjB-PK-eu4" secondAttribute="bottom" constant="8" id="w58-yH-fXe"/>
+                                                </constraints>
                                                 <variation key="default">
                                                     <mask key="constraints">
-                                                        <exclude reference="6fZ-tG-FOA"/>
+                                                        <exclude reference="Clg-gj-9o4"/>
+                                                        <exclude reference="Upp-HU-78U"/>
                                                     </mask>
                                                 </variation>
-                                            </label>
+                                            </view>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="jBC-3f-2WV" secondAttribute="trailing" id="0Ah-zr-MHX"/>
-                                            <constraint firstItem="jBC-3f-2WV" firstAttribute="top" secondItem="zjB-PK-eu4" secondAttribute="bottom" constant="8" id="98g-PV-Lu5"/>
-                                            <constraint firstItem="5FJ-K7-Cbr" firstAttribute="top" secondItem="jBC-3f-2WV" secondAttribute="bottom" constant="8" id="ECC-xp-kgm"/>
-                                            <constraint firstItem="jBC-3f-2WV" firstAttribute="leading" secondItem="CfQ-Lh-rM6" secondAttribute="leading" id="HT9-cI-xgY"/>
-                                            <constraint firstItem="5FJ-K7-Cbr" firstAttribute="centerX" secondItem="CfQ-Lh-rM6" secondAttribute="centerX" id="g4F-n5-gBh"/>
-                                            <constraint firstItem="lxd-7s-mmY" firstAttribute="centerX" secondItem="CfQ-Lh-rM6" secondAttribute="centerX" id="jy4-Iw-kld"/>
-                                            <constraint firstAttribute="bottom" secondItem="lxd-7s-mmY" secondAttribute="bottom" constant="5" id="nQR-rP-Ef8"/>
-                                            <constraint firstItem="zjB-PK-eu4" firstAttribute="top" secondItem="CfQ-Lh-rM6" secondAttribute="top" constant="5" id="tnF-Lw-PI2"/>
-                                            <constraint firstItem="zjB-PK-eu4" firstAttribute="centerX" secondItem="CfQ-Lh-rM6" secondAttribute="centerX" id="vo9-ov-keE"/>
+                                            <constraint firstAttribute="bottom" secondItem="WTK-OZ-1kB" secondAttribute="bottom" id="bmo-DD-HHu"/>
+                                            <constraint firstItem="WTK-OZ-1kB" firstAttribute="top" secondItem="CfQ-Lh-rM6" secondAttribute="top" id="cqK-l9-qJa"/>
+                                            <constraint firstAttribute="trailing" secondItem="WTK-OZ-1kB" secondAttribute="trailing" id="ngU-yH-uG8"/>
+                                            <constraint firstItem="WTK-OZ-1kB" firstAttribute="leading" secondItem="CfQ-Lh-rM6" secondAttribute="leading" id="vgT-Gx-0fC"/>
                                         </constraints>
                                     </scrollView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="lxd-7s-mmY" firstAttribute="centerX" secondItem="zDD-zL-EMN" secondAttribute="centerX" id="8Ji-rE-Wes"/>
+                                    <constraint firstItem="CfQ-Lh-rM6" firstAttribute="height" secondItem="zDD-zL-EMN" secondAttribute="height" id="C0C-eF-Goa"/>
                                     <constraint firstItem="CfQ-Lh-rM6" firstAttribute="top" secondItem="zDD-zL-EMN" secondAttribute="top" id="DOS-T9-ctp"/>
                                     <constraint firstAttribute="bottom" secondItem="CfQ-Lh-rM6" secondAttribute="bottom" id="Far-9k-b4Y"/>
                                     <constraint firstAttribute="trailing" secondItem="CfQ-Lh-rM6" secondAttribute="trailing" id="jRv-FQ-8UZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="lxd-7s-mmY" secondAttribute="bottom" constant="5" id="mji-Pz-Ebw"/>
+                                    <constraint firstItem="CfQ-Lh-rM6" firstAttribute="width" secondItem="zDD-zL-EMN" secondAttribute="width" id="mvL-j2-ZMQ"/>
                                     <constraint firstItem="CfQ-Lh-rM6" firstAttribute="leading" secondItem="zDD-zL-EMN" secondAttribute="leading" id="pzK-4Q-Lay"/>
+                                    <constraint firstItem="WTK-OZ-1kB" firstAttribute="width" secondItem="zDD-zL-EMN" secondAttribute="width" id="thi-35-abE"/>
                                 </constraints>
                                 <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.92410422120000002" green="0.92410422120000002" blue="0.92410422120000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="zDD-zL-EMN" secondAttribute="trailing" constant="-20" id="7ut-vP-JdL"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zDD-zL-EMN" secondAttribute="trailing" constant="-16" id="7ut-vP-JdL"/>
                             <constraint firstItem="zDD-zL-EMN" firstAttribute="top" secondItem="Uzd-zX-yXX" secondAttribute="bottom" id="9Ua-hY-0VO"/>
                             <constraint firstItem="0Hc-4x-tX0" firstAttribute="top" secondItem="zDD-zL-EMN" secondAttribute="bottom" id="OOW-3X-8d9"/>
-                            <constraint firstItem="zDD-zL-EMN" firstAttribute="leading" secondItem="lh4-H3-oEn" secondAttribute="leadingMargin" constant="-20" id="knM-9A-IxO"/>
+                            <constraint firstItem="zDD-zL-EMN" firstAttribute="leading" secondItem="lh4-H3-oEn" secondAttribute="leadingMargin" constant="-16" id="knM-9A-IxO"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="The 10:1 Interval Workout" id="SSe-I2-ZHW">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="5br-Ie-ZXl"/>
+                    <navigationItem key="navigationItem" title="About" id="SSe-I2-ZHW">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="5br-Ie-ZXl">
+                            <connections>
+                                <action selector="doneButonPressed:" destination="zBE-kN-fVg" id="ElR-2m-Irn"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
@@ -431,7 +467,7 @@ As Gretchen Reynolds writes in her April 2016 article for the New york Times, a 
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B18-HD-joM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1096" y="280"/>
+            <point key="canvasLocation" x="981" y="264"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="YXj-o5-M9L">
