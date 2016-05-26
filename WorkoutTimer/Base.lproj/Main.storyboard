@@ -334,6 +334,15 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zDD-zL-EMN">
                                 <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                                 <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The 10:1 Interval Workout" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="zjB-PK-eu4">
+                                        <rect key="frame" x="50" y="10" width="220" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="6M5-pK-YGb"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="© Grant Kennell 2016" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lxd-7s-mmY">
                                         <rect key="frame" x="99" y="396" width="122" height="15"/>
                                         <constraints>
@@ -345,13 +354,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CfQ-Lh-rM6">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                        <rect key="frame" x="0.0" y="33" width="320" height="361"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WTK-OZ-1kB">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="394"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="100" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="jBC-3f-2WV" customClass="TopAlignedLabel">
-                                                        <rect key="frame" x="12" y="37" width="296" height="316"/>
+                                                        <rect key="frame" x="15" y="2" width="290" height="373"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="324" id="6fZ-tG-FOA"/>
                                                         </constraints>
@@ -362,7 +371,7 @@ The workout consists of a 3-minute warmup followed by three 20 second bursts of 
 If you're trying to go from nothing to something but don't have the time to dedicate to long workouts, this can be your go-to tool.
 
 As Gretchen Reynolds writes in her April 2016 article for the New york Times, a study from McMaster University showed equal results in groups of out-of-shape young men who did this 10 minute workout compared to those doing slow and steady 45-minute workouts. Over the 12 week period, the endurance group worked for a total of 27 hours while the 10-minute group worked only six hours, and only worked hard for 36 minutes.</mutableString>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="default">
@@ -372,7 +381,7 @@ As Gretchen Reynolds writes in her April 2016 article for the New york Times, a 
                                                         </variation>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5FJ-K7-Cbr">
-                                                        <rect key="frame" x="80" y="361" width="161" height="23"/>
+                                                        <rect key="frame" x="80" y="383" width="161" height="23"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="IAE-hx-XBU"/>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="161" id="NQw-Kp-FKF"/>
@@ -380,7 +389,7 @@ As Gretchen Reynolds writes in her April 2016 article for the New york Times, a 
                                                             <constraint firstAttribute="width" constant="161" id="b0q-k7-zTW"/>
                                                             <constraint firstAttribute="height" constant="23" id="n0N-1c-PST"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                         <state key="normal" title="Read the Article"/>
                                                         <variation key="default">
                                                             <mask key="constraints">
@@ -393,31 +402,18 @@ As Gretchen Reynolds writes in her April 2016 article for the New york Times, a 
                                                             <action selector="openArticle:" destination="zBE-kN-fVg" eventType="touchUpInside" id="YLx-GS-muJ"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The 10:1 Interval Workout" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="zjB-PK-eu4">
-                                                        <rect key="frame" x="50" y="8" width="220" height="21"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="21" id="6M5-pK-YGb"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="zjB-PK-eu4" firstAttribute="centerX" secondItem="WTK-OZ-1kB" secondAttribute="centerX" id="BgR-XA-DsB"/>
-                                                    <constraint firstItem="jBC-3f-2WV" firstAttribute="top" secondItem="zjB-PK-eu4" secondAttribute="bottom" constant="8" id="Clg-gj-9o4"/>
                                                     <constraint firstItem="5FJ-K7-Cbr" firstAttribute="centerX" secondItem="WTK-OZ-1kB" secondAttribute="centerX" id="KYF-jR-9KM"/>
-                                                    <constraint firstAttribute="trailing" secondItem="jBC-3f-2WV" secondAttribute="trailing" constant="12" id="RwM-I7-QOh"/>
+                                                    <constraint firstAttribute="trailing" secondItem="jBC-3f-2WV" secondAttribute="trailing" constant="15" id="RwM-I7-QOh"/>
                                                     <constraint firstItem="5FJ-K7-Cbr" firstAttribute="top" secondItem="jBC-3f-2WV" secondAttribute="bottom" constant="8" id="Upp-HU-78U"/>
                                                     <constraint firstAttribute="bottom" secondItem="5FJ-K7-Cbr" secondAttribute="bottom" constant="10" id="VZH-OC-yTf"/>
                                                     <constraint firstItem="5FJ-K7-Cbr" firstAttribute="top" secondItem="jBC-3f-2WV" secondAttribute="bottom" constant="8" id="XFa-w7-cJ3"/>
-                                                    <constraint firstItem="zjB-PK-eu4" firstAttribute="top" secondItem="WTK-OZ-1kB" secondAttribute="top" constant="8" id="fT3-AT-XON"/>
-                                                    <constraint firstItem="jBC-3f-2WV" firstAttribute="leading" secondItem="WTK-OZ-1kB" secondAttribute="leading" constant="12" id="gqN-er-de4"/>
-                                                    <constraint firstItem="jBC-3f-2WV" firstAttribute="top" secondItem="zjB-PK-eu4" secondAttribute="bottom" constant="8" id="w58-yH-fXe"/>
+                                                    <constraint firstItem="jBC-3f-2WV" firstAttribute="leading" secondItem="WTK-OZ-1kB" secondAttribute="leading" constant="15" id="gqN-er-de4"/>
+                                                    <constraint firstItem="jBC-3f-2WV" firstAttribute="top" secondItem="WTK-OZ-1kB" secondAttribute="top" constant="2" id="yCW-g9-3mg"/>
                                                 </constraints>
                                                 <variation key="default">
                                                     <mask key="constraints">
-                                                        <exclude reference="Clg-gj-9o4"/>
                                                         <exclude reference="Upp-HU-78U"/>
                                                     </mask>
                                                 </variation>
@@ -432,17 +428,28 @@ As Gretchen Reynolds writes in her April 2016 article for the New york Times, a 
                                     </scrollView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="lxd-7s-mmY" firstAttribute="top" secondItem="CfQ-Lh-rM6" secondAttribute="bottom" constant="2" id="4u1-2e-bfp"/>
                                     <constraint firstItem="lxd-7s-mmY" firstAttribute="centerX" secondItem="zDD-zL-EMN" secondAttribute="centerX" id="8Ji-rE-Wes"/>
                                     <constraint firstItem="CfQ-Lh-rM6" firstAttribute="height" secondItem="zDD-zL-EMN" secondAttribute="height" id="C0C-eF-Goa"/>
                                     <constraint firstItem="CfQ-Lh-rM6" firstAttribute="top" secondItem="zDD-zL-EMN" secondAttribute="top" id="DOS-T9-ctp"/>
                                     <constraint firstAttribute="bottom" secondItem="CfQ-Lh-rM6" secondAttribute="bottom" id="Far-9k-b4Y"/>
+                                    <constraint firstItem="zjB-PK-eu4" firstAttribute="centerX" secondItem="zDD-zL-EMN" secondAttribute="centerX" id="MkC-gZ-oxp"/>
                                     <constraint firstAttribute="trailing" secondItem="CfQ-Lh-rM6" secondAttribute="trailing" id="jRv-FQ-8UZ"/>
                                     <constraint firstAttribute="bottom" secondItem="lxd-7s-mmY" secondAttribute="bottom" constant="5" id="mji-Pz-Ebw"/>
                                     <constraint firstItem="CfQ-Lh-rM6" firstAttribute="width" secondItem="zDD-zL-EMN" secondAttribute="width" id="mvL-j2-ZMQ"/>
                                     <constraint firstItem="CfQ-Lh-rM6" firstAttribute="leading" secondItem="zDD-zL-EMN" secondAttribute="leading" id="pzK-4Q-Lay"/>
+                                    <constraint firstItem="CfQ-Lh-rM6" firstAttribute="top" secondItem="zjB-PK-eu4" secondAttribute="bottom" constant="2" id="qik-jE-YbC"/>
                                     <constraint firstItem="WTK-OZ-1kB" firstAttribute="width" secondItem="zDD-zL-EMN" secondAttribute="width" id="thi-35-abE"/>
+                                    <constraint firstItem="zjB-PK-eu4" firstAttribute="top" secondItem="zDD-zL-EMN" secondAttribute="top" constant="10" id="uRV-Ca-Q1W"/>
                                 </constraints>
                                 <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="C0C-eF-Goa"/>
+                                        <exclude reference="DOS-T9-ctp"/>
+                                        <exclude reference="Far-9k-b4Y"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.92410422120000002" green="0.92410422120000002" blue="0.92410422120000002" alpha="1" colorSpace="calibratedRGB"/>

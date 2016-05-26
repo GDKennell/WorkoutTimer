@@ -71,7 +71,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     // Play silence first because of delay in first sound
     WorkoutSound *silence = [WorkoutSound soundWithFileName:@"silence"];
     [silence playThenCallSelector:nil onTarget:nil];
@@ -119,6 +119,12 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
+
+    BOOL hasBeenLaunchedBefore = [[NSUserDefaults standardUserDefaults] boolForKey:@"HasBeenLaunchedBefore"];
+    if (!hasBeenLaunchedBefore) {
+        [self aboutButtonPressed:nil];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasBeenLaunchedBefore"];
+    }
 }
 
 - (void)appDidEnterBackground {
