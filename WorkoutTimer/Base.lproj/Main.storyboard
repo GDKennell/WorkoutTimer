@@ -22,18 +22,26 @@
                                 <rect key="frame" x="-4" y="101" width="383" height="513"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SectionListTableViewCell" id="zRe-FM-Pka" customClass="SectionListTableViewCell">
-                                        <rect key="frame" x="0.0" y="28" width="383" height="44"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SectionListTableViewCell" rowHeight="60" id="zRe-FM-Pka" customClass="SectionListTableViewCell">
+                                        <rect key="frame" x="0.0" y="28" width="383" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zRe-FM-Pka" id="xQu-xb-N2n">
-                                            <rect key="frame" x="0.0" y="0.0" width="383" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="383" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ndR-by-dgt" userLabel="Inner View">
-                                                    <rect key="frame" x="8" y="0.0" width="334" height="41"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hYN-G5-VIA">
+                                                    <rect key="frame" x="-309" y="57" width="1001" height="2"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="2" id="6rj-Gb-Dho"/>
+                                                        <constraint firstAttribute="width" constant="1000" id="SiD-pR-HJS"/>
+                                                    </constraints>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ndR-by-dgt" userLabel="Inner View">
+                                                    <rect key="frame" x="8" y="0.0" width="367" height="57"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="imM-l2-PRh">
-                                                            <rect key="frame" x="4" y="10" width="70" height="21"/>
+                                                            <rect key="frame" x="4" y="18" width="70" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="70" id="BC4-gb-mcP"/>
                                                             </constraints>
@@ -41,8 +49,8 @@
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Intense" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kF8-cc-T5l">
-                                                            <rect key="frame" x="78" y="10" width="256" height="21"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Intense" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kF8-cc-T5l">
+                                                            <rect key="frame" x="78" y="18" width="289" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -59,8 +67,10 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="ndR-by-dgt" firstAttribute="top" secondItem="xQu-xb-N2n" secondAttribute="topMargin" id="2xz-LS-fhH"/>
+                                                <constraint firstItem="hYN-G5-VIA" firstAttribute="centerX" secondItem="xQu-xb-N2n" secondAttribute="centerX" id="4O3-P6-p1Q"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="ndR-by-dgt" secondAttribute="bottom" id="MUV-1a-F0e"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="ndR-by-dgt" secondAttribute="trailing" id="e35-ni-XXl"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="hYN-G5-VIA" secondAttribute="bottom" constant="-2" id="eyz-4f-I9p"/>
                                                 <constraint firstItem="ndR-by-dgt" firstAttribute="leading" secondItem="xQu-xb-N2n" secondAttribute="leadingMargin" id="wiD-5G-t5f"/>
                                             </constraints>
                                             <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="2" right="8"/>
@@ -364,13 +374,13 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="324" id="6fZ-tG-FOA"/>
                                                         </constraints>
-                                                        <mutableString key="text">This 10 minute workout with only 1 minute of intense exertion has the health benefits of 45 minutes of prolonged exercise. 
+                                                        <string key="text">This 10 minute workout with only 1 minute of intense exertion has the health benefits of 45 minutes of prolonged exercise. 
 
 The workout consists of a 3-minute warmup followed by three 20 second bursts of strenuous exercise broken up by two minute low intensity breaks. This regimen can be done with any exercise.
 
 If you're trying to go from nothing to something but don't have the time to dedicate to long workouts, this can be your go-to tool.
 
-As Gretchen Reynolds writes in her April 2016 article for the New York Times, a study from McMaster University showed equal results in groups of out-of-shape young men who did this 10 minute workout compared to those doing slow and steady 45-minute workouts. Over the 12 week period, the endurance group worked for a total of 27 hours while the 10-minute group worked only six hours, and only worked hard for 36 minutes.</mutableString>
+As Gretchen Reynolds writes in her April 2016 article for the New York Times, a study from McMaster University showed equal results in groups of out-of-shape young men who did this 10 minute workout compared to those doing slow and steady 45-minute workouts. Over the 12 week period, the endurance group worked for a total of 27 hours while the 10-minute group worked only six hours, and only worked hard for 36 minutes.</string>
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>

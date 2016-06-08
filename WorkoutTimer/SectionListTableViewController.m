@@ -115,6 +115,8 @@
     
     self.isWorkoutPaused = NO;
 
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
     [self appWillEnterForeground];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
@@ -251,6 +253,7 @@
 }
 
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SectionListTableViewCell *cell = (SectionListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"SectionListTableViewCell" forIndexPath:indexPath];
 
@@ -261,12 +264,20 @@
     if (self.currentSection == indexPath.row) {
         cell.backgroundColor = HIGHLIGHTED_CELL_BACKGROUND_COLOR;
         self.bottomMiddleLabel.text = workoutSection.name;
+        cell.timeLabel.font = [UIFont boldSystemFontOfSize:17.0f];
+        cell.mainLabel.font = [UIFont boldSystemFontOfSize:17.0f];
     }
     else {
         cell.backgroundColor = NORMAL_CELL_BACKGROUND_COLOR;
+        cell.timeLabel.font = [UIFont systemFontOfSize:17.0f];
+        cell.mainLabel.font = [UIFont systemFontOfSize:17.0f];
     }
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 60.0f;
 }
 
 - (IBAction)playPauseButtonPressed {
