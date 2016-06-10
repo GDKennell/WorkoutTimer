@@ -8,9 +8,12 @@
 
 #import "AppDelegate.h"
 
+@import Firebase;
+
 @interface AppDelegate ()
 
 @end
+
 
 @implementation AppDelegate
 
@@ -19,6 +22,8 @@
     // Override point for customization after application launch.
     UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeSound categories:nil];
     [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+
+    [FIRApp configure];
     return YES;
 }
 

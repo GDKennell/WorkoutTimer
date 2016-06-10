@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		861A48AC1D0B6E9D009C3A1D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 861A48AB1D0B6E9D009C3A1D /* GoogleService-Info.plist */; };
+		8BB3A7AC3574C0CD239FCDCB /* libPods-WorkoutTimer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B219CC28F39D3E6E0DE3E64 /* libPods-WorkoutTimer.a */; };
 		CA14D6861CDD325E00DAE876 /* start_workout.caf in Resources */ = {isa = PBXBuildFile; fileRef = CA14D6841CDD313F00DAE876 /* start_workout.caf */; };
 		CA14D6871CDD326100DAE876 /* start_slow.caf in Resources */ = {isa = PBXBuildFile; fileRef = CA14D6831CDD313F00DAE876 /* start_slow.caf */; };
 		CA14D6881CDD326400DAE876 /* workout_complete.caf in Resources */ = {isa = PBXBuildFile; fileRef = CA14D6851CDD313F00DAE876 /* workout_complete.caf */; };
@@ -35,6 +37,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3B219CC28F39D3E6E0DE3E64 /* libPods-WorkoutTimer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WorkoutTimer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		861A48AB1D0B6E9D009C3A1D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CA14D67D1CDD313F00DAE876 /* before_cooldown.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = before_cooldown.caf; path = Audio/before_cooldown.caf; sourceTree = "<group>"; };
 		CA14D67E1CDD313F00DAE876 /* before_intense.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = before_intense.caf; path = Audio/before_intense.caf; sourceTree = "<group>"; };
 		CA14D67F1CDD313F00DAE876 /* before_slow.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = before_slow.caf; path = Audio/before_slow.caf; sourceTree = "<group>"; };
@@ -74,6 +78,8 @@
 		CAC6C04A1CDBA39700102AF0 /* WorkoutTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkoutTableViewCell.m; sourceTree = "<group>"; };
 		CAC6C04F1CDBB41C00102AF0 /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utils.h"; sourceTree = "<group>"; };
 		CAC6C0501CDBB41C00102AF0 /* NSString+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utils.m"; sourceTree = "<group>"; };
+		D2BBEE1E03769E8D9AF07DB3 /* Pods-WorkoutTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorkoutTimer.release.xcconfig"; path = "Pods/Target Support Files/Pods-WorkoutTimer/Pods-WorkoutTimer.release.xcconfig"; sourceTree = "<group>"; };
+		E72669EF5D09F926B921ED8F /* Pods-WorkoutTimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorkoutTimer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WorkoutTimer/Pods-WorkoutTimer.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,12 +87,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BB3A7AC3574C0CD239FCDCB /* libPods-WorkoutTimer.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C2E3B7518B7E2A36BF74F98E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3B219CC28F39D3E6E0DE3E64 /* libPods-WorkoutTimer.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CA14D67C1CDD313500DAE876 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +124,8 @@
 			children = (
 				CAC6C01F1CDB8FD100102AF0 /* WorkoutTimer */,
 				CAC6C01E1CDB8FD100102AF0 /* Products */,
+				EA71E344869D34803438703F /* Pods */,
+				C2E3B7518B7E2A36BF74F98E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -151,6 +168,7 @@
 				CAC6C02C1CDB8FD100102AF0 /* Assets.xcassets */,
 				CAC6C02E1CDB8FD100102AF0 /* LaunchScreen.storyboard */,
 				CAC6C0311CDB8FD100102AF0 /* Info.plist */,
+				861A48AB1D0B6E9D009C3A1D /* GoogleService-Info.plist */,
 				CAC6C0201CDB8FD100102AF0 /* Supporting Files */,
 			);
 			path = WorkoutTimer;
@@ -164,6 +182,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		EA71E344869D34803438703F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E72669EF5D09F926B921ED8F /* Pods-WorkoutTimer.debug.xcconfig */,
+				D2BBEE1E03769E8D9AF07DB3 /* Pods-WorkoutTimer.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -171,9 +198,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CAC6C0341CDB8FD100102AF0 /* Build configuration list for PBXNativeTarget "WorkoutTimer" */;
 			buildPhases = (
+				9B6BCEB63AC0F842D3BAEEB5 /* [CP] Check Pods Manifest.lock */,
 				CAC6C0191CDB8FD100102AF0 /* Sources */,
 				CAC6C01A1CDB8FD100102AF0 /* Frameworks */,
 				CAC6C01B1CDB8FD100102AF0 /* Resources */,
+				68F4139DD6E48E8A3E0ED8FA /* [CP] Embed Pods Frameworks */,
+				F4A9D3A40ACC514A2C2124B7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -229,6 +259,7 @@
 			files = (
 				CAC6C0301CDB8FD100102AF0 /* LaunchScreen.storyboard in Resources */,
 				CA14D6901CDD401B00DAE876 /* silence.caf in Resources */,
+				861A48AC1D0B6E9D009C3A1D /* GoogleService-Info.plist in Resources */,
 				CA14D68B1CDD326C00DAE876 /* begin_warmup.caf in Resources */,
 				CA14D68E1CDD327400DAE876 /* before_cooldown.caf in Resources */,
 				CA14D6891CDD326800DAE876 /* start_intense.caf in Resources */,
@@ -244,6 +275,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		68F4139DD6E48E8A3E0ED8FA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WorkoutTimer/Pods-WorkoutTimer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9B6BCEB63AC0F842D3BAEEB5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F4A9D3A40ACC514A2C2124B7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WorkoutTimer/Pods-WorkoutTimer-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CAC6C0191CDB8FD100102AF0 /* Sources */ = {
@@ -371,6 +450,7 @@
 		};
 		CAC6C0351CDB8FD100102AF0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E72669EF5D09F926B921ED8F /* Pods-WorkoutTimer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = WorkoutTimer/Info.plist;
@@ -382,6 +462,7 @@
 		};
 		CAC6C0361CDB8FD100102AF0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D2BBEE1E03769E8D9AF07DB3 /* Pods-WorkoutTimer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = WorkoutTimer/Info.plist;
