@@ -8,6 +8,10 @@
 
 #import "AboutViewController.h"
 
+#import "AnalyticsConstants.h"
+
+@import Firebase;
+
 #define ARTICLE_URL_STRING @"http://mobile.nytimes.com/blogs/well/2016/04/27/1-minute-of-all-out-exercise-may-equal-45-minutes-of-moderate-exertion"
 
 @interface TopAlignedLabel : UILabel
@@ -46,6 +50,7 @@
 }
 
 - (IBAction)openArticle:(id)sender {
+    [FIRAnalytics logEventWithName:kReadArticlePressedAnalyticsKey parameters:nil];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:ARTICLE_URL_STRING]];
 }
 

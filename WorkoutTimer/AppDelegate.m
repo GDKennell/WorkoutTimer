@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "AnalyticsConstants.h"
 
 @import Firebase;
 
@@ -25,6 +26,16 @@
 
     [FIRApp configure];
     return YES;
+}
+
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+    UIUserNotificationType types = notificationSettings.types;
+    if (types == UIUserNotificationTypeNone) {
+        [FIRAnalytics logEventWithName:kNotificationsRefusedAnalyticsKey parameters:nil];
+    }
+    else {
+        [FIRAnalytics logEventWithName:kNotificationsAcceptedAnalyticsKey parameters:nil];
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

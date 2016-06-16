@@ -14,7 +14,10 @@
 
 #import "AboutViewController.h"
 
+#import "AnalyticsConstants.h"
+
 @import AudioToolbox;
+@import Firebase;
 
 #define NORMAL_CELL_BACKGROUND_COLOR [UIColor colorWithRed:0.931821f green:0.931821f blue:0.931821f alpha:1.0f]
 #define HIGHLIGHTED_CELL_BACKGROUND_COLOR [UIColor colorWithRed:1.0f green:0.833506 blue:0.23678 alpha:1.0f]
@@ -124,7 +127,7 @@
 
     BOOL hasBeenLaunchedBefore = [[NSUserDefaults standardUserDefaults] boolForKey:@"HasBeenLaunchedBefore"];
     if (!hasBeenLaunchedBefore) {
-        [self aboutButtonPressed:nil];
+        [self displayAboutPage];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasBeenLaunchedBefore"];
     }
 }
@@ -211,6 +214,7 @@
             [self.resetButton setEnabled:YES];
         }
         else {
+            [FIRAnalytics logEventWithName:kWorkoutCompletedAnalyticsKey parameters:nil];
             [self workoutCompleteAndPlaySound:NO];
         }
     }
@@ -281,6 +285,8 @@
 }
 
 - (IBAction)playPauseButtonPressed {
+    [FIRAnalytics logEventWithName:kWorkoutPausedOrResumedAnalyticsKey parameters:nil];
+
     if (self.isWorkoutInProgress) {
         self.isWorkoutPaused = YES;
         [[UIApplication sharedApplication] cancelAllLocalNotifications];
@@ -298,17 +304,25 @@
 }
 
 - (IBAction)aboutButtonPressed:(id)sender {
+    [FIRAnalytics logEventWithName:kAboutButtonPressedAnalyticsKey parameters:nil];
+    [self displayAboutPage];
+}
+
+- (void)displayAboutPage {
     UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     UINavigationController *aboutVC = [mainStoryBoard instantiateViewControllerWithIdentifier:@"AboutVC"];
     [self presentViewController:aboutVC animated:YES completion:nil];
 }
 
 - (IBAction)resetButtonPressed {
+    [FIRAnalytics logEventWithName:kWorkoutResetAnalyticsKey parameters:nil];
     self.isWorkoutPaused = NO;
     [self workoutCompleteAndPlaySound:NO];
 }
 
 - (IBAction)startWorkoutButtonPressed:(id)sender {
+    [FIRAnalytics logEventWithName:kWorkoutStartedAnalyticsKey parameters:nil];
+
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     self.currentSection = -1; // playBeforeSound will do the increment
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kWorkoutInProgressKey];
@@ -320,6 +334,7 @@
     NSLog(@"Before sound %d", self.currentSection);
     NSArray<WorkoutSection *> *workoutSections = [[DataStore sharedDataStore] workoutSections];
     if (self.currentSection + 1 >= (NSInteger)workoutSections.count) {
+        [FIRAnalytics logEventWithName:kWorkoutCompletedAnalyticsKey parameters:nil];
         [self workoutCompleteAndPlaySound:YES];
         return;
     }
@@ -446,6 +461,7 @@
 }
 
 - (void)workoutComplete {
+    [FIRAnalytics logEventWithName:kWorkoutCompletedAnalyticsKey parameters:nil];
     [self workoutCompleteAndPlaySound:YES];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kWorkoutInProgressKey];
 }
