@@ -61,8 +61,8 @@
 @property NSTimeInterval totalTimeLeft;
 
 
-@property BOOL isWorkoutPaused;
-@property (readonly) BOOL isWorkoutInProgress;
+@property (getter=isWorkoutPaused)     BOOL workoutPaused;
+@property (getter=isWorkoutInProgress) BOOL workoutInProgress;
 
 @end
 
@@ -115,12 +115,8 @@
     [dataStore addWorkoutSection:cooldownSection];
     
     self.totalTimeLeft = dataStore.totalWorkoutTime;
-    
-    self.isWorkoutPaused = NO;
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
-    [self appWillEnterForeground];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
@@ -129,14 +125,16 @@
     if (!hasBeenLaunchedBefore) {
         [self displayAboutPage];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasBeenLaunchedBefore"];
+        self.workoutPaused = NO;
+        self.workoutInProgress = NO;
     }
+
+    [self appWillEnterForeground];
 }
 
 - (void)appDidEnterBackground {
     [[NSUserDefaults standardUserDefaults] setObject:@(self.totalTimeLeft) forKey:kTotalTimeLeftKey];
     [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:kAppBackgroundedDate];
-    [[NSUserDefaults standardUserDefaults] setBool:self.isWorkoutPaused forKey:kWorkoutPausedKey];
-    [[NSUserDefaults standardUserDefaults] setBool:self.isWorkoutInProgress forKey:kWorkoutInProgressKey];
     [self.countDownTimer invalidate];
     self.countDownTimer = nil;
     [self.currentTimer invalidate];
@@ -192,8 +190,7 @@
 
 - (void)appWillEnterForeground {
     NSTimeInterval previousTotalTimeLeft = [[[NSUserDefaults standardUserDefaults] objectForKey:kTotalTimeLeftKey] doubleValue];
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:kWorkoutPausedKey]) {
-        self.isWorkoutPaused = YES;
+    if (self.isWorkoutPaused) {
         [self.playPauseButton setEnabled:YES];
         [self.playPauseButton setTitle:@"Resume" forState:UIControlStateNormal];
 
@@ -202,21 +199,25 @@
         [self updateBottomBar];
         [self.resetButton setEnabled:YES];
     }
-    else {
+    else if (self.isWorkoutInProgress) {
         NSDate *backgroundedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kAppBackgroundedDate];
         NSTimeInterval timeInBackground = [[NSDate date] timeIntervalSinceDate:backgroundedDate];
 
         NSTimeInterval totalTimeLeft =  previousTotalTimeLeft - timeInBackground;
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:kWorkoutInProgressKey] && totalTimeLeft > 0) {
+        if (totalTimeLeft > 0) {
             self.totalTimeLeft = totalTimeLeft;
             [self restoreCurrentSection];
             [self resumeWorkout];
             [self.resetButton setEnabled:YES];
         }
         else {
+            NSLog(kWorkoutCompletedAnalyticsKey);
             [FIRAnalytics logEventWithName:kWorkoutCompletedAnalyticsKey parameters:nil];
             [self workoutCompleteAndPlaySound:NO];
         }
+    }
+    else {
+        [self resetBottomBar];
     }
 }
 
@@ -287,8 +288,9 @@
 - (IBAction)playPauseButtonPressed {
     [FIRAnalytics logEventWithName:kWorkoutPausedOrResumedAnalyticsKey parameters:nil];
 
-    if (self.isWorkoutInProgress) {
-        self.isWorkoutPaused = YES;
+    if (!self.isWorkoutPaused) {
+        self.workoutPaused = YES;
+
         [[UIApplication sharedApplication] cancelAllLocalNotifications];
         [self.playPauseButton setTitle:@"Resume" forState:UIControlStateNormal];
         [self.countDownTimer invalidate];
@@ -297,7 +299,7 @@
         self.currentTimer = nil;
     }
     else {
-        self.isWorkoutPaused = NO;
+        self.workoutPaused = NO;
         [self.playPauseButton setTitle:@"Pause" forState:UIControlStateNormal];
         [self resumeWorkout];
     }
@@ -316,7 +318,7 @@
 
 - (IBAction)resetButtonPressed {
     [FIRAnalytics logEventWithName:kWorkoutResetAnalyticsKey parameters:nil];
-    self.isWorkoutPaused = NO;
+    self.workoutPaused = NO;
     [self workoutCompleteAndPlaySound:NO];
 }
 
@@ -325,7 +327,8 @@
 
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     self.currentSection = -1; // playBeforeSound will do the increment
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kWorkoutInProgressKey];
+    self.workoutInProgress = YES;
+    self.workoutPaused = NO;
     [self playBeforeSound];
     [self.startWorkoutButton setEnabled:NO];
 }
@@ -463,10 +466,12 @@
 - (void)workoutComplete {
     [FIRAnalytics logEventWithName:kWorkoutCompletedAnalyticsKey parameters:nil];
     [self workoutCompleteAndPlaySound:YES];
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kWorkoutInProgressKey];
 }
 
 - (void)workoutCompleteAndPlaySound:(BOOL)playSound {
+    self.workoutInProgress = NO;
+    self.workoutPaused = NO;
+
     if (playSound) {
         WorkoutSound *workoutCompleteSound = [WorkoutSound soundWithFileName:WORKOUT_COMPLETE_FILENAME];
         [workoutCompleteSound playThenCallSelector:nil onTarget:nil];
@@ -489,12 +494,20 @@
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
-- (BOOL)isWorkoutInProgress {
-    return self.countDownTimer != nil;
+- (void)setWorkoutInProgress:(BOOL)workoutInProgress {
+    [[NSUserDefaults standardUserDefaults] setBool:workoutInProgress forKey:kWorkoutInProgressKey];
 }
 
-- (BOOL)isIsWorkoutPaused {
-    return !self.isWorkoutInProgress && self.totalTimeLeft < [[DataStore sharedDataStore] totalWorkoutTime];
+- (BOOL)isWorkoutInProgress {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kWorkoutInProgressKey];
+}
+
+- (void)setWorkoutPaused:(BOOL)workoutPaused {
+    [[NSUserDefaults standardUserDefaults] setBool:workoutPaused forKey:kWorkoutPausedKey];
+}
+
+- (BOOL)isWorkoutPaused {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kWorkoutPausedKey];
 }
 
 @end
