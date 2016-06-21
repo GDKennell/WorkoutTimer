@@ -113,7 +113,8 @@
                                             <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="startWorkoutButtonPressed:" destination="qYf-rT-vHd" eventType="touchUpInside" id="nrq-tQ-Ql6"/>
+                                            <action selector="startWorkButtonReleased:" destination="qYf-rT-vHd" eventType="touchUpInside" id="VCC-Lb-jXr"/>
+                                            <action selector="startWorkoutButtonPressed:" destination="qYf-rT-vHd" eventType="touchDown" id="iiA-Hi-lI4"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="05:43" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eNC-Hw-UNd">
@@ -129,7 +130,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.83350566439999996" blue="0.23678044740000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.1966728422794303" green="0.99784958960808079" blue="0.25429197307616386" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="3En-XG-hxT" secondAttribute="bottom" id="3aX-Fy-g9h"/>
                                     <constraint firstAttribute="trailing" secondItem="3En-XG-hxT" secondAttribute="trailing" id="9hR-UE-Ztd"/>

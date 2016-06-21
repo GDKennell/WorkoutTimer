@@ -323,6 +323,11 @@
 }
 
 - (IBAction)startWorkoutButtonPressed:(id)sender {
+    self.startWorkoutButton.backgroundColor = [UIColor colorWithWhite:0.7 alpha:0.3];
+}
+
+- (IBAction)startWorkButtonReleased:(id)sender {
+    self.startWorkoutButton.backgroundColor = [UIColor clearColor];
     [FIRAnalytics logEventWithName:kWorkoutStartedAnalyticsKey parameters:nil];
 
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
