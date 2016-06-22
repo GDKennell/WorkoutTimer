@@ -7,5 +7,7 @@ target 'WorkoutTimer' do
 
   # Pods for WorkoutTimer
 	pod 'Firebase'
+	pod 'Fabric'
+	pod 'Crashlytics'
 
 end

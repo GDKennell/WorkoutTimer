@@ -9,6 +9,9 @@
 #import "AppDelegate.h"
 #import "AnalyticsConstants.h"
 
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
 @import Firebase;
 
 @interface AppDelegate ()
@@ -25,6 +28,7 @@
     [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
 
     [FIRApp configure];
+    [Fabric with:@[[Crashlytics class]]];
     return YES;
 }
 

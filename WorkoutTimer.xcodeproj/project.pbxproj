@@ -206,6 +206,7 @@
 				CAC6C01B1CDB8FD100102AF0 /* Resources */,
 				68F4139DD6E48E8A3E0ED8FA /* [CP] Embed Pods Frameworks */,
 				F4A9D3A40ACC514A2C2124B7 /* [CP] Copy Pods Resources */,
+				8625E8D41D1AF10A00EB35FA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -293,6 +294,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WorkoutTimer/Pods-WorkoutTimer-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		8625E8D41D1AF10A00EB35FA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 728719d2d99ddce5bf0d67fb2f9e4da51e44ccd1 8422b09bc8fbf584a7a96c9b63772db5b0acb2904503ae1765803482b2d3fb0b";
 		};
 		9B6BCEB63AC0F842D3BAEEB5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
