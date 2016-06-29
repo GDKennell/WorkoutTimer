@@ -469,11 +469,14 @@
 			baseConfigurationReference = E72669EF5D09F926B921ED8F /* Pods-WorkoutTimer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Grant Kennell (GCMEVBUV6F)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = WorkoutTimer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.grantkennell.WorkoutTimer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.grantkennell.TenOneIntervalTimer;
 				PRODUCT_NAME = "10:1 Interval";
+				PROVISIONING_PROFILE = "5446a1b4-80f5-40c7-85f8-5eddf3913b7e";
 			};
 			name = Debug;
 		};
@@ -482,11 +485,14 @@
 			baseConfigurationReference = D2BBEE1E03769E8D9AF07DB3 /* Pods-WorkoutTimer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Grant Kennell (GCMEVBUV6F)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = WorkoutTimer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.grantkennell.WorkoutTimer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.grantkennell.TenOneIntervalTimer;
 				PRODUCT_NAME = "10:1 Interval";
+				PROVISIONING_PROFILE = "5446a1b4-80f5-40c7-85f8-5eddf3913b7e";
 			};
 			name = Release;
 		};
